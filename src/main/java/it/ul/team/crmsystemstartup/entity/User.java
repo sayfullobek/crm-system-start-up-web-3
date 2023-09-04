@@ -3,8 +3,11 @@ package it.ul.team.crmsystemstartup.entity;
 import it.ul.team.crmsystemstartup.entity.enums.InComeType;
 import it.ul.team.crmsystemstartup.entity.templates.AbsEntity;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -15,7 +18,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity(name = "users")
 @Builder
-public class User extends AbsEntity {
+public class User extends AbsEntity implements UserDetails {
 
     @Column(nullable = false)
     private String firstName;
@@ -23,7 +26,6 @@ public class User extends AbsEntity {
     @Column(nullable = false)
     private String lastName;
 
-    @Column(nullable = false)
     private String middleName;
 
     @Column(nullable = false, unique = true)
@@ -32,7 +34,6 @@ public class User extends AbsEntity {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
     private String date;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -63,4 +64,53 @@ public class User extends AbsEntity {
 
     @ManyToOne
     private MonthlyEmployeIncome monthlyEmployeIncome;
+
+    public User(String firstName, String lastName, String phoneNumber, String password, Set<Role> roles, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.password = password;
+        this.roles = roles;
+        this.accountNonExpired = accountNonExpired;
+        this.accountNonLocked = accountNonLocked;
+        this.credentialsNonExpired = credentialsNonExpired;
+        this.enabled = enabled;
+    }
+
+    private boolean accountNonExpired = true;
+    private boolean accountNonLocked = true;
+    private boolean credentialsNonExpired = true;
+    private boolean enabled = true;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return phoneNumber;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return accountNonExpired;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return accountNonLocked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return accountNonExpired;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
 }
+
+
