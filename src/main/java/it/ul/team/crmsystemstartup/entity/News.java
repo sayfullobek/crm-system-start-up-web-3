@@ -5,13 +5,18 @@ import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class News extends AbsEntity {
+public class News  {
+    @Id
+    @Column(nullable = false)
+    private Integer id;
+
     @Column(nullable = false)
     private String message;
 
