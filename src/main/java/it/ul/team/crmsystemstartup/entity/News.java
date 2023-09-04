@@ -13,9 +13,6 @@ import javax.persistence.Entity;
 @Entity
 public class News extends AbsEntity {
     @Column(nullable = false)
-    private Integer id;
-
-    @Column(nullable = false)
     private String message;
 
     @Column(nullable = false)

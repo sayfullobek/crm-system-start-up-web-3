@@ -8,13 +8,15 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Complaint extends AbsNameEntity {
+public class Complaint  {
+    @Id
     @Column(nullable = false)
     private  Integer id;
 
