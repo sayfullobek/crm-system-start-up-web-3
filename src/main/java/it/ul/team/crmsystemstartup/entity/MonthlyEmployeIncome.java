@@ -6,22 +6,20 @@ import lombok.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
+@EqualsAndHashCode(callSuper = true)
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@AllArgsConstructor
 @Entity
-public class IncomeStatistic extends AbsEntity {
+@Builder
+public class MonthlyEmployeIncome extends AbsEntity {
     @Column(nullable = false)
-    private double alls;
+    private double sum;
 
     @Column(nullable = false)
-    private double monthly;
+    private String month;
 
     @Column(nullable = false)
-    private double all_cost;
-
-    @Column(nullable = false)
-    private double monthly_cost;
+    private String allInCome;
 }
