@@ -14,6 +14,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class PaymentService implements PaymentServiceImpl {
+
     private final PaymentRepository paymentRepository;
     @Override
     public List<PaymentDto> getCountry() {
@@ -30,13 +31,5 @@ public class PaymentService implements PaymentServiceImpl {
         return null;
     }
 
-    @Override
-    public ApiResponse<?> deleteCountry(UUID id) {
-        return null;
-    }
 
-    @Override
-    public ApiResponse<?> getOneCountry(UUID id) {
-        return null;
-    }
 }

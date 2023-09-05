@@ -10,6 +10,4 @@ public interface PaymentServiceImpl {
     List<PaymentDto> getCountry();
     ApiResponse<?> addCountry(PaymentDto paymentDto);
     ApiResponse<?> editCountry(UUID id, PaymentDto paymentDto);
-    ApiResponse<?> deleteCountry(UUID id);
-    ApiResponse<?> getOneCountry(UUID id);
 }
