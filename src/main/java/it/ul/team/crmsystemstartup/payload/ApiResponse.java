@@ -13,8 +13,9 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-    @JsonInclude(JsonInclude.Include.NON_ABSENT)
+@JsonInclude(JsonInclude.Include.NON_ABSENT)
 public class ApiResponse<T> implements Serializable {
+
     private String message;
     private boolean success;
     private ResToken resToken;

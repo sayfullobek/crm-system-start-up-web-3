@@ -22,6 +22,10 @@ public class Payment extends AbsEntity {
     private String student;
     @ManyToMany
     private List<PayType> payType;
+    @Column(nullable = false)
+    private Double sum;
+    @Column(nullable = false)
+    private String date;
 
 
 }
