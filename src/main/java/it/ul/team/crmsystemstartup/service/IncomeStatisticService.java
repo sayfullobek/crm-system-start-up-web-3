@@ -11,28 +11,29 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class IncomeStatisticService implements IncomeStatisticServiceImplement {
+
     @Override
     public List<IncomeStatisticDto> getIncomeStatistic() {
         return null;
     }
 
     @Override
-    public ApiResponse<?> addCountry(IncomeStatisticDto incomeStatisticDto) {
+    public ApiResponse<?> addIncomeStatistic(IncomeStatisticDto incomeStatisticDto) {
         return null;
     }
 
     @Override
-    public ApiResponse<?> editCountry(Integer id, IncomeStatisticDto incomeStatisticDto) {
+    public ApiResponse<?> editIncomeStatistic(Integer id, IncomeStatisticDto incomeStatisticDto) {
         return null;
     }
 
     @Override
-    public ApiResponse<?> deleteCountry(Integer id) {
+    public ApiResponse<?> deleteIncomeStatistic(Integer id) {
         return null;
     }
 
     @Override
-    public ApiResponse<?> getOneCountry(Integer id) {
+    public ApiResponse<?> getOneIncomeStatistic(Integer id) {
         return null;
     }
 }

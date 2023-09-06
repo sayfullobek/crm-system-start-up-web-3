@@ -13,28 +13,29 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/income-statistic")
 @CrossOrigin
 public class IncomeStatisticController implements IncomeStatisticControllerImplement {
+
     @Override
-    public HttpEntity<?> getCountry() {
+    public HttpEntity<?> getIncomeStatistic() {
         return null;
     }
 
     @Override
-    public HttpEntity<?> addCountry(IncomeStatisticDto incomeStatisticDto) {
+    public HttpEntity<?> addIncomeStatistic(IncomeStatisticDto incomeStatisticDto) {
         return null;
     }
 
     @Override
-    public HttpEntity<?> editCountry(Integer id, IncomeStatisticDto incomeStatisticDto) {
+    public HttpEntity<?> editIncomeStatistic(Integer id, IncomeStatisticDto incomeStatisticDto) {
         return null;
     }
 
     @Override
-    public HttpEntity<?> deleteCountry(Integer id) {
+    public HttpEntity<?> deleteIncomeStatistic(Integer id) {
         return null;
     }
 
     @Override
-    public HttpEntity<?> getOneCountry(Integer id) {
+    public HttpEntity<?> getOneIncomeStatistic(Integer id) {
         return null;
     }
 }
