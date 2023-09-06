@@ -1,6 +1,6 @@
 package it.ul.team.crmsystemstartup.controller;
 
-import it.ul.team.crmsystemstartup.implement.ControllerImplement.IncomeStatisticControllerImplement;
+import it.ul.team.crmsystemstartup.implement.controllerImplement.IncomeStatisticControllerImplement;
 import it.ul.team.crmsystemstartup.payload.IncomeStatisticDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;

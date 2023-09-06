@@ -1,6 +1,6 @@
 package it.ul.team.crmsystemstartup.service;
 
-import it.ul.team.crmsystemstartup.implement.ServiceImplement.IncomeStatisticServiceImplement;
+import it.ul.team.crmsystemstartup.implement.serviceImplement.IncomeStatisticServiceImplement;
 import it.ul.team.crmsystemstartup.payload.ApiResponse;
 import it.ul.team.crmsystemstartup.payload.IncomeStatisticDto;
 import lombok.RequiredArgsConstructor;
