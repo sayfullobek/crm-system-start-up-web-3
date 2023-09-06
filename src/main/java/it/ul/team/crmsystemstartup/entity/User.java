@@ -26,6 +26,7 @@ public class User extends AbsEntity implements UserDetails {
     @Column(nullable = false)
     private String lastName;
 
+
     private String middleName;
 
     @Column(nullable = false, unique = true)
@@ -33,6 +34,7 @@ public class User extends AbsEntity implements UserDetails {
 
     @Column(nullable = false)
     private String password;
+
 
     private String date;
 
@@ -69,6 +71,7 @@ public class User extends AbsEntity implements UserDetails {
     private boolean accountNonLocked = true;
     private boolean credentialsNonExpired = true;
     private boolean enabled = true;
+
 
     public User(String firstName, String lastName, String phoneNumber, String password, Set<Role> roles, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled) {
         this.firstName = firstName;
@@ -112,5 +115,3 @@ public class User extends AbsEntity implements UserDetails {
         return enabled;
     }
 }
-
-

@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
+@Entity(name = "courses")
 @Builder
 public class Course extends AbsNameEntity {
 
@@ -24,5 +24,5 @@ public class Course extends AbsNameEntity {
     @Column(nullable = false)
     private String description;
 
-    private boolean isActive;
+    private boolean isActive=true;
 }

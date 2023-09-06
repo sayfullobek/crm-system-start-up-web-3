@@ -1,6 +1,5 @@
 package it.ul.team.crmsystemstartup.service;
 
-import it.ul.team.crmsystemstartup.implement.serviceImplement.IncomeStatisticServiceImplement;
 import it.ul.team.crmsystemstartup.payload.ApiResponse;
 import it.ul.team.crmsystemstartup.payload.IncomeStatisticDto;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +9,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class IncomeStatisticService implements IncomeStatisticServiceImplement {
+public class IncomeStatisticService implements it.ul.team.crmsystemstartup.implement.ServiceImplement.IncomeStatisticServiceImplement {
 
     @Override
     public List<IncomeStatisticDto> getIncomeStatistic() {
