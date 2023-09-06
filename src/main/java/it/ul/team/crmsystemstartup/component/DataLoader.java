@@ -29,21 +29,22 @@ public class DataLoader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         if (intiMode.equals("create") || intiMode.equals("create-drop")) {
-           for (RoleName value : RoleName.values()) {
+            for (RoleName value : RoleName.values()) {
                 roleRepository.save(new Role(value));
             }
-            User build = User.builder()
-                    .firstName("qozi")
-                    .lastName("gadayev")
-                    .phoneNumber("987654321")
-                    .password(passwordEncoder.encode("ceo1234"))
-                    .roles(Collections.singleton(roleRepository.findById(1).orElseThrow(() -> new ResourceNotFoundException("getRole"))))
-                    .accountNonLocked(true)
-                    .accountNonExpired(true)
-                    .credentialsNonExpired(true)
-                    .enabled(true)
-                    .build();
-            authRepository.save(build);
+            authRepository.save(
+                    User.builder()
+                            .firstName("qozi")
+                            .lastName("gadayev")
+                            .phoneNumber("990008877")
+                            .password(passwordEncoder.encode("ceo1234"))
+                            .roles(Collections.singleton(roleRepository.findById(1).orElseThrow(() -> new ResourceNotFoundException("getRole"))))
+                            .accountNonLocked(true)
+                            .accountNonExpired(true)
+                            .credentialsNonExpired(true)
+                            .enabled(true)
+                            .build()
+            );
         }
     }
 }

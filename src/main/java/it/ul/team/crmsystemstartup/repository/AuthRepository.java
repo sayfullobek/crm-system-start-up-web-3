@@ -10,4 +10,5 @@ import java.util.UUID;
 @CrossOrigin
 public interface AuthRepository extends JpaRepository<User, UUID> {
     Optional<User> findUserByPhoneNumber(String phoneNumber);
+
 }

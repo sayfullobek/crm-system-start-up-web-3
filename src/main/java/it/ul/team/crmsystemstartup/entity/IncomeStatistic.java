@@ -11,16 +11,16 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity
+@Entity(name = "income_statistic")
 public class IncomeStatistic extends AbsEntity {
     @Column(nullable = false)
-    private double alls;
+    private double allS;
 
     @Column(nullable = false)
     private double monthly;
 
     @Column(nullable = false)
-    private double all_cost;
+    private double allS_cost;
 
     @Column(nullable = false)
     private double monthly_cost;
