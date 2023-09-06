@@ -65,6 +65,11 @@ public class User extends AbsEntity implements UserDetails {
     @ManyToOne
     private MonthlyEmployeIncome monthlyEmployeIncome;
 
+    private boolean accountNonExpired = true;
+    private boolean accountNonLocked = true;
+    private boolean credentialsNonExpired = true;
+    private boolean enabled = true;
+
     public User(String firstName, String lastName, String phoneNumber, String password, Set<Role> roles, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -76,11 +81,6 @@ public class User extends AbsEntity implements UserDetails {
         this.credentialsNonExpired = credentialsNonExpired;
         this.enabled = enabled;
     }
-
-    private boolean accountNonExpired = true;
-    private boolean accountNonLocked = true;
-    private boolean credentialsNonExpired = true;
-    private boolean enabled = true;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
