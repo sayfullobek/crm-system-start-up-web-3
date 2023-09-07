@@ -1,5 +1,6 @@
 package it.ul.team.crmsystemstartup.service;
 
+import it.ul.team.crmsystemstartup.entity.Course;
 import it.ul.team.crmsystemstartup.entity.Payment;
 import it.ul.team.crmsystemstartup.entity.User;
 import it.ul.team.crmsystemstartup.exception.ResourceNotFoundException;
@@ -45,14 +46,22 @@ public class PaymentService implements PaymentServiceImpl {
     public ApiResponse<?> addPayment(PaymentDto paymentDto) {
         try {
             User user = authRepository.findById(paymentDto.getUserId()).orElseThrow(() -> new ResourceNotFoundException(404, "getUser", "userId", paymentDto.getUserId()));
-            Payment build = Payment.builder()
-                    .student(paymentDto.getStudent())
-                    .sum(paymentDto.getSum())
-                    .date(paymentDto.getDate())
-                    .payType(paymentDto.getPayTypes())
-                    .build();
-            paymentRepository.save(build);
-            return new ApiResponse<>("tolandi", true);
+            Course course = courseRepository.findById(paymentDto.getCourseId()).orElseThrow(() -> new ResourceNotFoundException(404, "course", "courseId", paymentDto.getCourseId()));
+            for (Course course1 : user.getCourses()) {
+                if (course == course1) {
+                    Payment build = Payment.builder()
+                            .student(paymentDto.getStudent())
+                            .sum(paymentDto.getSum())
+                            .date(paymentDto.getDate())
+                            .payType(paymentDto.getPayTypes())
+                            .build();
+                    Payment save = paymentRepository.save(build);
+                    user.getPayment().add(save);
+                    authRepository.save(user);
+                    return new ApiResponse<>("tolandi", true);
+                }
+            }
+            return new ApiResponse<>(" topilamdi", false);
         } catch (Exception e) {
             return new ApiResponse<>("xatolik", false);
         }
@@ -61,7 +70,6 @@ public class PaymentService implements PaymentServiceImpl {
 //    public ApiResponse<?> addPayment(PaymentDto paymentDto) {
 //        try {
 //            User user = authRepository.findById(paymentDto.getUserId()).orElseThrow(() -> new ResourceNotFoundException(404, "user", "id", paymentDto.getUserId()));
-//
 //            Course course = courseRepository.findById(paymentDto.getCourseId()).orElseThrow(() -> new ResourceNotFoundException(404, "course", "courseId", paymentDto.getCourseId()));
 //            for (Course course1 : user.getCourses()) {
 //                if (course == course1) {
