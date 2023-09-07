@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface PaymentServiceImpl {
-    List<PaymentDto> getCountry();
-    ApiResponse<?> addCountry(PaymentDto paymentDto);
-    ApiResponse<?> editCountry(UUID id, PaymentDto paymentDto);
+    List<PaymentDto> getPayment();
+    ApiResponse<?> addPayment(PaymentDto paymentDto);
+    ApiResponse<?> editPayment(UUID id, PaymentDto paymentDto);
 }
