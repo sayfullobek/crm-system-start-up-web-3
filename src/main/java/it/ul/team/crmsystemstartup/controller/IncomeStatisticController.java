@@ -1,41 +1,56 @@
 package it.ul.team.crmsystemstartup.controller;
 
 import it.ul.team.crmsystemstartup.implement.controllerImplement.IncomeStatisticControllerImplement;
+import it.ul.team.crmsystemstartup.payload.ApiResponse;
 import it.ul.team.crmsystemstartup.payload.IncomeStatisticDto;
+import it.ul.team.crmsystemstartup.service.IncomeStatisticService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/income-statistic")
+@RequestMapping("/api/income-statistic")
 @CrossOrigin
 public class IncomeStatisticController implements IncomeStatisticControllerImplement {
 
+    private final IncomeStatisticService service;
+
     @Override
+    @GetMapping
     public HttpEntity<?> getIncomeStatistic() {
-        return null;
+        List<IncomeStatisticDto> incomeStatistic = service.getIncomeStatistic();
+        return ResponseEntity.ok(incomeStatistic);
     }
 
     @Override
-    public HttpEntity<?> addIncomeStatistic(IncomeStatisticDto incomeStatisticDto) {
-        return null;
+    @PostMapping
+    public HttpEntity<?> addIncomeStatistic(@RequestBody IncomeStatisticDto incomeStatisticDto) {
+        ApiResponse<?> apiResponse = service.addIncomeStatistic(incomeStatisticDto);
+        return ResponseEntity.status(apiResponse.isSuccess() ? HttpStatus.OK : HttpStatus.CONFLICT).body(apiResponse);
     }
 
     @Override
-    public HttpEntity<?> editIncomeStatistic(Integer id, IncomeStatisticDto incomeStatisticDto) {
-        return null;
+    @PutMapping("/{id}")
+    public HttpEntity<?> editIncomeStatistic(@PathVariable UUID id, @RequestBody IncomeStatisticDto incomeStatisticDto) {
+        ApiResponse<?> apiResponse = service.editIncomeStatistic(id, incomeStatisticDto);
+        return ResponseEntity.status(apiResponse.isSuccess() ? HttpStatus.OK : HttpStatus.CONFLICT).body(apiResponse);
     }
 
     @Override
-    public HttpEntity<?> deleteIncomeStatistic(Integer id) {
-        return null;
+    @DeleteMapping("/{id}")
+    public HttpEntity<?> deleteIncomeStatistic(@PathVariable UUID id) {
+        ApiResponse<?> apiResponse = service.deleteIncomeStatistic(id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? HttpStatus.OK : HttpStatus.CONFLICT).body(apiResponse);
     }
 
     @Override
-    public HttpEntity<?> getOneIncomeStatistic(Integer id) {
+    public HttpEntity<?> getOneIncomeStatistic(UUID id) {
         return null;
     }
 }
