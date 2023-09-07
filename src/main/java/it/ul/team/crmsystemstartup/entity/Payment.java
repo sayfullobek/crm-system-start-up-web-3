@@ -18,6 +18,7 @@ import java.util.List;
 @Builder
 @Entity(name = "payment")
 public class Payment extends AbsEntity {
+
     @Column(nullable = false)
     private String student;
     @ManyToMany
