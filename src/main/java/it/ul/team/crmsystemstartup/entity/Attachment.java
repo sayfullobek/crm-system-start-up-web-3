@@ -1,6 +1,6 @@
-package it.revo.onlineshopweb3.entity;
+package it.ul.team.crmsystemstartup.entity;
 
-import it.revo.onlineshopweb3.entity.templates.AbsEntity;
+import it.ul.team.crmsystemstartup.entity.templates.AbsEntity;
 import lombok.*;
 
 import javax.persistence.Column;

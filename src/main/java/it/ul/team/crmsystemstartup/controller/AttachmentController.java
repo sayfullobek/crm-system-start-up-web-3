@@ -1,8 +1,7 @@
-package it.revo.onlineshopweb3.controller;
+package it.ul.team.crmsystemstartup.controller;
 
-import it.revo.onlineshopweb3.service.AttachmentService;
+import it.ul.team.crmsystemstartup.service.AttachmentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

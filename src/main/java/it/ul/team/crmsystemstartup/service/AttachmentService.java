@@ -1,12 +1,11 @@
-package it.revo.onlineshopweb3.service;
+package it.ul.team.crmsystemstartup.service;
 
 
-import it.revo.onlineshopweb3.entity.Attachment;
-import it.revo.onlineshopweb3.entity.AttachmentContent;
-import it.revo.onlineshopweb3.repository.AttachmentContentRepository;
-import it.revo.onlineshopweb3.repository.AttachmentRepository;
+import it.ul.team.crmsystemstartup.entity.Attachment;
+import it.ul.team.crmsystemstartup.entity.AttachmentContent;
+import it.ul.team.crmsystemstartup.repository.AttachmentContentRepository;
+import it.ul.team.crmsystemstartup.repository.AttachmentRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;

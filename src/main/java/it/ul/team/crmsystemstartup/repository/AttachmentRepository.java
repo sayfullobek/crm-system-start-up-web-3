@@ -1,6 +1,6 @@
-package it.revo.onlineshopweb3.repository;
+package it.ul.team.crmsystemstartup.repository;
 
-import it.revo.onlineshopweb3.entity.Attachment;
+import it.ul.team.crmsystemstartup.entity.Attachment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
