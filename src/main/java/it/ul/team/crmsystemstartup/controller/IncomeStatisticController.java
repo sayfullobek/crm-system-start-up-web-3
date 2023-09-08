@@ -3,6 +3,7 @@ package it.ul.team.crmsystemstartup.controller;
 import it.ul.team.crmsystemstartup.implement.controllerImplement.IncomeStatisticControllerImplement;
 import it.ul.team.crmsystemstartup.payload.ApiResponse;
 import it.ul.team.crmsystemstartup.payload.IncomeStatisticDto;
+import it.ul.team.crmsystemstartup.repository.IncomeStatisticRepository;
 import it.ul.team.crmsystemstartup.service.IncomeStatisticService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
@@ -17,8 +18,8 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/income-statistic")
 @CrossOrigin
-public class IncomeStatisticController implements it.ul.team.crmsystemstartup.implement.ControllerImplement.IncomeStatisticControllerImplement {
-
+public class IncomeStatisticController implements it.ul.team.crmsystemstartup.implement.controllerImplement.IncomeStatisticControllerImplement {
+    public final IncomeStatisticService service;
     @Override
     @GetMapping
     public HttpEntity<?> getIncomeStatistic() {
@@ -31,24 +32,5 @@ public class IncomeStatisticController implements it.ul.team.crmsystemstartup.im
     public HttpEntity<?> addIncomeStatistic(@RequestBody IncomeStatisticDto incomeStatisticDto) {
         ApiResponse<?> apiResponse = service.addIncomeStatistic(incomeStatisticDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? HttpStatus.OK : HttpStatus.CONFLICT).body(apiResponse);
-    }
-
-    @Override
-    @PutMapping("/{id}")
-    public HttpEntity<?> editIncomeStatistic(@PathVariable UUID id, @RequestBody IncomeStatisticDto incomeStatisticDto) {
-        ApiResponse<?> apiResponse = service.editIncomeStatistic(id, incomeStatisticDto);
-        return ResponseEntity.status(apiResponse.isSuccess() ? HttpStatus.OK : HttpStatus.CONFLICT).body(apiResponse);
-    }
-
-    @Override
-    @DeleteMapping("/{id}")
-    public HttpEntity<?> deleteIncomeStatistic(@PathVariable UUID id) {
-        ApiResponse<?> apiResponse = service.deleteIncomeStatistic(id);
-        return ResponseEntity.status(apiResponse.isSuccess() ? HttpStatus.OK : HttpStatus.CONFLICT).body(apiResponse);
-    }
-
-    @Override
-    public HttpEntity<?> getOneIncomeStatistic(UUID id) {
-        return null;
     }
 }
