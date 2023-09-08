@@ -17,9 +17,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/income-statistic")
 @CrossOrigin
-public class IncomeStatisticController implements IncomeStatisticControllerImplement {
-
-    private final IncomeStatisticService service;
+public class IncomeStatisticController implements it.ul.team.crmsystemstartup.implement.ControllerImplement.IncomeStatisticControllerImplement {
 
     @Override
     @GetMapping
@@ -35,4 +33,22 @@ public class IncomeStatisticController implements IncomeStatisticControllerImple
         return ResponseEntity.status(apiResponse.isSuccess() ? HttpStatus.OK : HttpStatus.CONFLICT).body(apiResponse);
     }
 
+    @Override
+    @PutMapping("/{id}")
+    public HttpEntity<?> editIncomeStatistic(@PathVariable UUID id, @RequestBody IncomeStatisticDto incomeStatisticDto) {
+        ApiResponse<?> apiResponse = service.editIncomeStatistic(id, incomeStatisticDto);
+        return ResponseEntity.status(apiResponse.isSuccess() ? HttpStatus.OK : HttpStatus.CONFLICT).body(apiResponse);
+    }
+
+    @Override
+    @DeleteMapping("/{id}")
+    public HttpEntity<?> deleteIncomeStatistic(@PathVariable UUID id) {
+        ApiResponse<?> apiResponse = service.deleteIncomeStatistic(id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? HttpStatus.OK : HttpStatus.CONFLICT).body(apiResponse);
+    }
+
+    @Override
+    public HttpEntity<?> getOneIncomeStatistic(UUID id) {
+        return null;
+    }
 }

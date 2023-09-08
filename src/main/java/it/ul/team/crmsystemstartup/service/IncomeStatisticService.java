@@ -45,6 +45,37 @@ public class IncomeStatisticService implements IncomeStatisticServiceImplement {
         }
     }
 
+    @Override
+    public ApiResponse<?> editIncomeStatistic(UUID id, IncomeStatisticDto incomeStatisticDto) {
+        try {
+            IncomeStatistic incomeStatistic = incomeStatisticRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(404, "getIncomeStatistic", "incomeStatisticId", id));
+            incomeStatistic.setAllS(incomeStatisticDto.getAllS());
+            incomeStatistic.setMonthly(incomeStatisticDto.getMonthly());
+            incomeStatistic.setAllS_cost(incomeStatisticDto.getAllS_cost());
+            incomeStatistic.setMonthly_cost(incomeStatisticDto.getMonthly_cost());
+            incomeStatisticRepository.save(incomeStatistic);
+            return new ApiResponse<>("taxrirlandi😎", true);
+        }catch (Exception e){
+            return new ApiResponse<>("taxrirlashda xatolik😵", false);
+        }
+    }
+
+    @Override
+    public ApiResponse<?> deleteIncomeStatistic(UUID id) {
+        try {
+            IncomeStatistic incomeStatistic = incomeStatisticRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(404, "getIncomeStatistic", "incomeStatisticId", id));
+            incomeStatisticRepository.delete(incomeStatistic);
+            return new ApiResponse<>("o'chirildi🙃", true);
+        }catch (Exception e){
+            return new ApiResponse<>("Deleteda xatolik😵", false);
+        }
+    }
+
+    @Override
+    public ApiResponse<?> getOneIncomeStatistic(UUID id) {
+        return null;
+    }
+
     public IncomeStatisticDto getIncomeStatisticBuild(IncomeStatistic incomeStatistic){
         return IncomeStatisticDto.builder()
                 .id(incomeStatistic.getId())

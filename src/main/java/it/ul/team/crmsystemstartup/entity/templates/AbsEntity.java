@@ -11,9 +11,11 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.UUID;
 
 @Getter
@@ -43,4 +45,6 @@ public abstract class AbsEntity {
 
     @LastModifiedBy
     private UUID updatedBy;
+
+
 }

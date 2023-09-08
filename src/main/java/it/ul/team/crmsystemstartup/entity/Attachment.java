@@ -5,29 +5,23 @@ import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 
+@EqualsAndHashCode(callSuper = true)
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
-public class News  {
-    @Id
-    @Column(nullable = false)
-    private Integer id;
-
-    @Column(nullable = false)
-    private String message;
+public class Attachment extends AbsEntity {
 
     @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
-    private Integer photoId;
+    private String contentType;
 
     @Column(nullable = false)
-    private Integer videoId;
+    private Long size;
 
 
 }
