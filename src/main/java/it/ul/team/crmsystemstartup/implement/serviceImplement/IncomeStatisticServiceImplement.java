@@ -9,7 +9,4 @@ import java.util.UUID;
 public interface IncomeStatisticServiceImplement {
     List<IncomeStatisticDto> getIncomeStatistic();
     ApiResponse<?> addIncomeStatistic(IncomeStatisticDto incomeStatisticDto);
-    ApiResponse<?> editIncomeStatistic(UUID id, IncomeStatisticDto incomeStatisticDto);
-    ApiResponse<?> deleteIncomeStatistic(UUID id);
-    ApiResponse<?> getOneIncomeStatistic(UUID id);
 }

@@ -6,7 +6,4 @@ import org.springframework.http.HttpEntity;
 public interface IncomeStatisticControllerImplement {
     HttpEntity<?> getIncomeStatistic();
     HttpEntity<?> addIncomeStatistic(IncomeStatisticDto incomeStatisticDto);
-    HttpEntity<?> editIncomeStatistic(Integer id, IncomeStatisticDto incomeStatisticDto);
-    HttpEntity<?> deleteIncomeStatistic(Integer id);
-    HttpEntity<?> getOneIncomeStatistic(Integer id);
 }
