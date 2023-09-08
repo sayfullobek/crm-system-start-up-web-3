@@ -7,10 +7,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class IncomeStatisticService implements it.ul.team.crmsystemstartup.implement.ServiceImplement.IncomeStatisticServiceImplement {
+public class IncomeStatisticService implements IncomeStatisticServiceImplement {
 
     @Override
     public List<IncomeStatisticDto> getIncomeStatistic() {
@@ -23,17 +24,18 @@ public class IncomeStatisticService implements it.ul.team.crmsystemstartup.imple
     }
 
     @Override
-    public ApiResponse<?> editIncomeStatistic(Integer id, IncomeStatisticDto incomeStatisticDto) {
+    public ApiResponse<?> editIncomeStatistic(UUID id, IncomeStatisticDto incomeStatisticDto) {
         return null;
     }
 
     @Override
-    public ApiResponse<?> deleteIncomeStatistic(Integer id) {
+    public ApiResponse<?> deleteIncomeStatistic(UUID id) {
         return null;
     }
 
     @Override
-    public ApiResponse<?> getOneIncomeStatistic(Integer id) {
+    public ApiResponse<?> getOneIncomeStatistic(UUID id) {
         return null;
     }
+
 }

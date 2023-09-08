@@ -10,4 +10,5 @@ public interface GroupControllerImpl {
     HttpEntity<?>addGroup(GroupDto groupDto);
     HttpEntity<?>editeGroup(UUID id,GroupDto groupDto);
     HttpEntity<?>deleteGroup(UUID id);
+    HttpEntity<?>changeActive(UUID id,boolean active);
 }

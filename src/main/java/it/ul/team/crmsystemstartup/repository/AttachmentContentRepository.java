@@ -10,6 +10,6 @@ import java.util.UUID;
 public interface AttachmentContentRepository extends JpaRepository<AttachmentContent, UUID> {
     AttachmentContent findByAttachmentId(UUID id);
 
-    @Query("select attachment from AttachmentContent where attachment.id=?1")
-    Attachment findAttachmentContentByAttachmentId(UUID id);
+//    @Query("select attachment from AttachmentContent where attachment.id=?1")
+//    Attachment findAttachmentContentByAttachmentId(UUID id);
 }

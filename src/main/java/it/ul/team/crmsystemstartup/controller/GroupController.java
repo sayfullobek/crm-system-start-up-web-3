@@ -1,29 +1,62 @@
 package it.ul.team.crmsystemstartup.controller;
 
 import it.ul.team.crmsystemstartup.implement.controllerImplement.GroupControllerImpl;
+import it.ul.team.crmsystemstartup.payload.ApiResponse;
 import it.ul.team.crmsystemstartup.payload.GroupDto;
+import it.ul.team.crmsystemstartup.service.GroupService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
+@RestController
+@CrossOrigin
+@RequiredArgsConstructor
+@RequestMapping("/api/group")
 public class GroupController implements GroupControllerImpl {
+    public final GroupService groupService;
+
     @Override
     public HttpEntity<?> getGroup() {
-        return null;
+        List<GroupDto> group = groupService.getGroup();
+        return ResponseEntity.ok(group);
+    }
+
+    @PostMapping
+    @Override
+    public HttpEntity<?> addGroup(@RequestBody GroupDto groupDto) {
+        ApiResponse<?> apiResponse = groupService.addGroup(groupDto);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @PostMapping("/photo")
+    public HttpEntity<?> addPhoto(@PathVariable UUID groupId, UUID photoId) {
+        ApiResponse<?> apiResponse = groupService.addPhoto(groupId, photoId);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+
     }
 
     @Override
-    public HttpEntity<?> addGroup(GroupDto groupDto) {
-        return null;
-    }
-
-    @Override
+    @PutMapping("/{id}")
     public HttpEntity<?> editeGroup(UUID id, GroupDto groupDto) {
-        return null;
+        ApiResponse<?> apiResponse = groupService.editeGroup(id, groupDto);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
     @Override
+    @DeleteMapping("/{id}")
     public HttpEntity<?> deleteGroup(UUID id) {
-        return null;
+        ApiResponse<?> apiResponse = groupService.deleteGroup(id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @Override
+    @PutMapping("/active/{id}")
+    public HttpEntity<?> changeActive(UUID id, @RequestParam(name = "active") boolean active) {
+        ApiResponse<?> apiResponse = groupService.changeActive(id, active);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 }

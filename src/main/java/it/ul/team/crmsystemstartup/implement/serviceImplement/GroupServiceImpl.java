@@ -12,6 +12,6 @@ public interface GroupServiceImpl {
     ApiResponse<?>addGroup(GroupDto groupDto);
     ApiResponse<?>editeGroup(UUID id,GroupDto groupDto);
     ApiResponse<?>deleteGroup(UUID id);
-
+    ApiResponse<?>changeActive(UUID id,boolean active);
 
 }

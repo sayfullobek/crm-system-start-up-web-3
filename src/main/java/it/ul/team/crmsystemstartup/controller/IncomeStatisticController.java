@@ -1,5 +1,6 @@
 package it.ul.team.crmsystemstartup.controller;
 
+import it.ul.team.crmsystemstartup.implement.controllerImplement.IncomeStatisticControllerImplement;
 import it.ul.team.crmsystemstartup.payload.IncomeStatisticDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/income-statistic")
 @CrossOrigin
-public class IncomeStatisticController implements it.ul.team.crmsystemstartup.implement.ControllerImplement.IncomeStatisticControllerImplement {
+public class IncomeStatisticController implements IncomeStatisticControllerImplement {
 
     @Override
     public HttpEntity<?> getIncomeStatistic() {
