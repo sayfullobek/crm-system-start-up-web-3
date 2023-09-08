@@ -1,8 +1,6 @@
 package it.ul.team.crmsystemstartup.service;
 
-import io.swagger.annotations.Api;
 import it.ul.team.crmsystemstartup.entity.*;
-import it.ul.team.crmsystemstartup.entity.enums.DayTypeName;
 import it.ul.team.crmsystemstartup.exception.ResourceNotFoundException;
 import it.ul.team.crmsystemstartup.implement.serviceImplement.GroupServiceImpl;
 import it.ul.team.crmsystemstartup.payload.ApiResponse;
@@ -12,10 +10,8 @@ import it.ul.team.crmsystemstartup.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -35,18 +31,7 @@ public class GroupService implements GroupServiceImpl {
         List<SelectDto> selectDtos = new ArrayList<>();
         for (Group group : all) {
             selectDtos.add((SelectDto) group.getWeekDays());
-            GroupDto groupDto = GroupDto.builder()
-                    .id(group.getId())
-                    .name(group.getName())
-                    .teacher(group.getTeacher())
-                    .course(group.getCourse())
-                    .start_date(group.getStart_date())
-                    .end_date(group.getEnd_date())
-                    .weekDays(selectDtos)
-                    .dayTypeName(group.getDayTypeName())
-                    .photoId(group.getPhotoId())
-                    .active(group.isActive())
-                    .build();
+            GroupDto groupDto = GroupDto.builder().id(group.getId()).name(group.getName()).teacher(group.getTeacher()).course(group.getCourse()).start_date(group.getStart_date()).end_date(group.getEnd_date()).weekDays(selectDtos).dayTypeName(group.getDayTypeName()).photoId(group.getPhotoId()).active(group.isActive()).build();
             groupDtos.add(groupDto);
         }
         return groupDtos;
@@ -64,17 +49,7 @@ public class GroupService implements GroupServiceImpl {
                 weekDays.add(weekDay1);
             }
             if (!exist) {
-                Group group = Group.builder()
-                        .name(groupDto.getName())
-                        .course(course)
-                        .teacher(teacher)
-                        .dayTypeName(groupDto.getDayTypeName())
-                        .start_date(groupDto.getStart_date())
-                        .end_date(groupDto.getEnd_date())
-                        .weekDays(weekDays)
-                        .photoId(groupDto.getPhotoId())
-                        .active(true)
-                        .build();
+                Group group = Group.builder().name(groupDto.getName()).course(course).teacher(teacher).dayTypeName(groupDto.getDayTypeName()).start_date(groupDto.getStart_date()).end_date(groupDto.getEnd_date()).weekDays(weekDays).photoId(groupDto.getPhotoId()).active(true).build();
                 groupRepository.save(group);
                 return new ApiResponse<>("saqlandi", true);
             }
