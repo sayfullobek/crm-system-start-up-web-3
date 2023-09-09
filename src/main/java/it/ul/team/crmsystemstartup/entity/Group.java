@@ -39,7 +39,7 @@ public class Group extends AbsEntity {
     private boolean active = true;
 
     @ManyToMany
-    private List<PupilSale>pupilSales;
+    private List<PupilSale> pupilSales;
 
     @ManyToMany
     private List<User> pupil;

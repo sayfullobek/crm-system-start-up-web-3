@@ -31,6 +31,7 @@ public class AttachmentService {
         Iterator<String> fileNames = request.getFileNames();
         MultipartFile file = request.getFile(fileNames.next());
 
+        assert file != null;
         Attachment attachment = Attachment.builder()
                 .name(file.getOriginalFilename())
                 .contentType(file.getContentType())
@@ -44,7 +45,7 @@ public class AttachmentService {
                 .bytes(file.getBytes())
                 .build();
         attachmentContentRepository.save(attachmentContent);
-         return save.getId();
+        return save.getId();
     }
 
     public HttpEntity<?> download(UUID id) {

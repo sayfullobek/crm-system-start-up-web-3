@@ -27,6 +27,31 @@ public class PaymentService implements PaymentServiceImpl {
     private final CourseRepository courseRepository;
 
     @Override
+    public List<PaymentDto> getCountry() {
+        return null;
+    }
+
+    @Override
+    public ApiResponse<?> addCountry(PaymentDto paymentDto) {
+        return null;
+    }
+
+    @Override
+    public ApiResponse<?> editCountry(UUID id, PaymentDto paymentDto) {
+        return null;
+    }
+
+    @Override
+    public ApiResponse<?> deleteCountry(UUID id) {
+        return null;
+    }
+
+    @Override
+    public ApiResponse<?> getOneCountry(UUID id) {
+        return null;
+    }
+
+    @Override
     public List<PaymentDto> getPayment() {
         List<Payment> all = paymentRepository.findAll();
         List<PaymentDto> paymentDtos = new ArrayList<>();

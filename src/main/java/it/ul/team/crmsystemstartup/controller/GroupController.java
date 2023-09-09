@@ -9,6 +9,7 @@ import it.ul.team.crmsystemstartup.repository.GroupRepository;
 import it.ul.team.crmsystemstartup.service.GroupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

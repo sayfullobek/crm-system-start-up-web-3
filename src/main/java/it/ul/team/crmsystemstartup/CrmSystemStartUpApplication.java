@@ -1,5 +1,6 @@
 package it.ul.team.crmsystemstartup;
 
+import it.ul.team.crmsystemstartup.config.InitConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

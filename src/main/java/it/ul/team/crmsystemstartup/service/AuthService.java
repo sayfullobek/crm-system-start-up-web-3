@@ -1,9 +1,7 @@
 package it.ul.team.crmsystemstartup.service;
 
 import it.ul.team.crmsystemstartup.entity.User;
-import it.ul.team.crmsystemstartup.payload.GetData;
-import it.ul.team.crmsystemstartup.payload.LoginDto;
-import it.ul.team.crmsystemstartup.payload.ResToken;
+import it.ul.team.crmsystemstartup.payload.*;
 import it.ul.team.crmsystemstartup.repository.AuthRepository;
 import it.ul.team.crmsystemstartup.repository.RoleRepository;
 import it.ul.team.crmsystemstartup.security.JwtTokenProvider;
@@ -21,6 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.UUID;
 
 @Service
@@ -63,5 +62,32 @@ public class AuthService implements UserDetailsService {
     private String generateToken(String phoneNumber) {
         User user = authRepository.findUserByPhoneNumber(phoneNumber).orElseThrow(() -> new UsernameNotFoundException("getUser"));
         return jwtTokenProvider.generateToken(user.getId());
+    }
+
+    public HttpEntity<?> register(RegisterDto registerDto, AuthenticationManager authenticationManager) {
+        if (registerDto.getPhoneNumber().length() != 9) {
+            return ResponseEntity.ok(new ApiResponse<>("telefon raqamda xatolik", false));
+        }
+        try {
+            User user = User.builder()
+                    .firstName(registerDto.getName())
+                    .lastName(registerDto.getSurname())
+                    .phoneNumber(registerDto.getPhoneNumber())
+                    .password(passwordEncoder().encode(registerDto.getPassword()))
+                    .roles(Collections.singleton(roleRepository.findById(4).orElseThrow(() -> new ResourceNotFoundException("getRole"))))
+                    .accountNonLocked(true)
+                    .accountNonExpired(true)
+                    .credentialsNonExpired(true)
+                    .enabled(true)
+                    .build();
+            User save = authRepository.save(user);
+            LoginDto loginDto = LoginDto.builder()
+                    .phoneNumber(save.getPhoneNumber())
+                    .password(registerDto.getPassword())
+                    .build();
+            return login(loginDto, authenticationManager);
+        } catch (NumberFormatException e) {
+            return ResponseEntity.ok(new ApiResponse<>("Telefon raqam faqat raqamdan iborat bo'lishi kerak", false));
+        }
     }
 }

@@ -1,7 +1,6 @@
 package it.ul.team.crmsystemstartup.payload;
 
 import it.ul.team.crmsystemstartup.entity.Course;
-import it.ul.team.crmsystemstartup.entity.PupilSale;
 import it.ul.team.crmsystemstartup.entity.User;
 import it.ul.team.crmsystemstartup.entity.enums.DayTypeName;
 import lombok.*;

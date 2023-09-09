@@ -1,6 +1,7 @@
 package it.ul.team.crmsystemstartup.controller;
 
 import it.ul.team.crmsystemstartup.entity.User;
+import it.ul.team.crmsystemstartup.payload.RegisterDto;
 import it.ul.team.crmsystemstartup.repository.AuthRepository;
 import it.ul.team.crmsystemstartup.payload.LoginDto;
 import it.ul.team.crmsystemstartup.service.AuthService;
@@ -30,5 +31,10 @@ public class AuthController {
     public HttpEntity<?> getOneUser(@PathVariable UUID id) {
         User user = authRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("getUser"));
         return ResponseEntity.ok(user);
+    }
+
+    @PostMapping("/register")
+    public HttpEntity<?> register(@RequestBody RegisterDto registerDto) {
+        return authService.register(registerDto, authenticationManager);
     }
 }

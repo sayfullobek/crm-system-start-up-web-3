@@ -27,6 +27,7 @@ public class CourseService implements CourseServiceImpl {
                     .name(course.getName())
                     .price(course.getPrice())
                     .expireDate(course.getExpireDate())
+                    .description(course.getDescription())
                     .isActive(true)
                     .build();
             courseDtos.add(courseDto);

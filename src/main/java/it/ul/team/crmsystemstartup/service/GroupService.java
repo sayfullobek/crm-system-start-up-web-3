@@ -49,7 +49,16 @@ public class GroupService implements GroupServiceImpl {
                 weekDays.add(weekDay1);
             }
             if (!exist) {
-                Group group = Group.builder().name(groupDto.getName()).course(course).teacher(teacher).dayTypeName(groupDto.getDayTypeName()).start_date(groupDto.getStart_date()).end_date(groupDto.getEnd_date()).weekDays(weekDays).photoId(groupDto.getPhotoId()).active(true).build();
+                Group group = Group.builder()
+                        .name(groupDto.getName())
+                        .course(course)
+                        .teacher(teacher)
+                        .dayTypeName(groupDto.getDayTypeName())
+                        .start_date(groupDto.getStart_date())
+                        .end_date(groupDto.getEnd_date())
+                        .weekDays(weekDays)
+                        .photoId(groupDto.getPhotoId())
+                        .active(true).build();
                 groupRepository.save(group);
                 return new ApiResponse<>("saqlandi", true);
             }
