@@ -16,7 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity(name = "Group")
+@Entity(name = "group")
 public class Group extends AbsEntity {
     @Column(nullable = false)
     private String name;
@@ -36,7 +36,7 @@ public class Group extends AbsEntity {
     @Enumerated(value = EnumType.STRING)
     private DayTypeName dayTypeName;
 
-    private boolean isActive = true;
+    private boolean active = true;
 
     @ManyToMany
     private List<PupilSale>pupilSales;

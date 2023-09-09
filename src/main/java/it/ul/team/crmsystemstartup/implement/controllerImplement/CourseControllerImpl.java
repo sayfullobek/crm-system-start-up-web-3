@@ -8,4 +8,5 @@ public interface CourseControllerImpl {
     HttpEntity<?>addCourse(CourseDto courseDto);
     HttpEntity<?> editeCourse(Integer id,CourseDto courseDto);
     HttpEntity<?> deleteCourse(Integer id);
+    HttpEntity<?>getOneCourse(Integer id);
 }

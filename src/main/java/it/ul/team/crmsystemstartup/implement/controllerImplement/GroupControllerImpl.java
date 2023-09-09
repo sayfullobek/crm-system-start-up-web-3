@@ -6,8 +6,11 @@ import org.springframework.http.HttpEntity;
 import java.util.UUID;
 
 public interface GroupControllerImpl {
+    HttpEntity<?>getOneGroup(UUID id);
     HttpEntity<?>getGroup();
     HttpEntity<?>addGroup(GroupDto groupDto);
     HttpEntity<?>editeGroup(UUID id,GroupDto groupDto);
     HttpEntity<?>deleteGroup(UUID id);
+    HttpEntity<?>changeActive(UUID id,boolean active);
+
 }
