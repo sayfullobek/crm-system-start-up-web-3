@@ -7,6 +7,7 @@ import it.ul.team.crmsystemstartup.implement.serviceImplement.LidServiceImplemen
 import it.ul.team.crmsystemstartup.payload.ApiResponse;
 import it.ul.team.crmsystemstartup.payload.UserDto;
 import it.ul.team.crmsystemstartup.repository.CourseRepository;
+import it.ul.team.crmsystemstartup.repository.LidStatusRepository;
 import it.ul.team.crmsystemstartup.repository.RoleRepository;
 import it.ul.team.crmsystemstartup.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ public class LidService implements LidServiceImplement {
     private final UserRepository userRepository;
     private final CourseRepository courseRepository;
     private final RoleRepository roleRepository;
+    private final LidStatusRepository lidStatusRepository;
 
     @Override
     public List<UserDto> getLid() {
@@ -36,7 +38,7 @@ public class LidService implements LidServiceImplement {
                             .lastName(user.getLastName())
                             .phoneNumber(user.getPhoneNumber())
                             .lidType(user.getLidType())
-                            .lidStatus(user.getLidStatus())
+                            .lidStatus(user.getLidStatuses().get(1))
                             .date(user.getDate())
                             .courses(user.getCourses())
                             .build()
@@ -48,24 +50,24 @@ public class LidService implements LidServiceImplement {
     @Override
     public ApiResponse<?> addLid(UserDto userDto) {
         try {
-            List<Course> courses = new ArrayList<>();
-            for (Course cours : userDto.getCourses()) {
-                Course course = courseRepository.findById(cours.getId()).orElseThrow(() -> new ResourceNotFoundException(404, "getCourse", "getCourseId", cours.getId()));
-                courses.add(course);
+            Course course = courseRepository.findById(userDto.getCourseId()).orElseThrow(() -> new ResourceNotFoundException(404, "getCourse", "getCourseId", userDto.getCourseId()));
+            if (course != null) {
+                User user = User.builder()
+                        .firstName(userDto.getFirstName())
+                        .lastName(userDto.getLastName())
+                        .phoneNumber(userDto.getPhoneNumber())
+                        .courses(Collections.singletonList(course))
+                        .date(userDto.getDate())
+                        .lidStatuses(Collections.singletonList(lidStatusRepository.findById(userDto.getLidStatusId()).orElseThrow(() -> new ResourceNotFoundException(404, "getLidStatus", "lidStatusId", userDto.getLidStatusId()))))
+//                        .lidType(userDto.getLidType())
+                        .roles(Collections.singleton(roleRepository.findById(5).orElseThrow(() -> new org.springframework.data.rest.webmvc.ResourceNotFoundException("getRole"))))
+                        .build();
+                userRepository.save(user);
+                return new ApiResponse<>("Saqlandi", true);
             }
-            User.builder()
-                    .firstName(userDto.getFirstName())
-                    .lastName(userDto.getLastName())
-                    .phoneNumber(userDto.getPhoneNumber())
-                    .courses(courses)
-                    .date(userDto.getDate())
-                    .lidStatus(userDto.getLidStatus())
-                    .lidType(userDto.getLidType())
-                    .roles(Collections.singleton(roleRepository.findById(5).orElseThrow(() -> new org.springframework.data.rest.webmvc.ResourceNotFoundException("getRole"))))
-                    .build();
-            return new ApiResponse<>("Saqlandi", true);
+            return new ApiResponse<>("Course mavjud emas", false);
         } catch (Exception e) {
-            return new ApiResponse<>("Xatolik", false);
+            return new ApiResponse<>("Kichik xatolik", false);
         }
     }
 
@@ -83,7 +85,7 @@ public class LidService implements LidServiceImplement {
             user.setPhoneNumber(userDto.getPhoneNumber());
             user.setCourses(courses);
             user.setDate(userDto.getDate());
-            user.setLidStatus(userDto.getLidStatus());
+            user.setLidStatuses(Collections.singletonList(lidStatusRepository.findById(userDto.getLidStatusId()).orElseThrow(() -> new ResourceNotFoundException(404, "getLidStatus", "lidStatusId", userDto.getLidStatusId()))));
             user.setLidType(userDto.getLidType());
             user.setRoles(Collections.singleton(roleRepository.findById(5).orElseThrow(() -> new org.springframework.data.rest.webmvc.ResourceNotFoundException("getRole"))));
             userRepository.save(user);
