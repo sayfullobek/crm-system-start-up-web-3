@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/lids")
+@RequestMapping("/api/lids")
 @CrossOrigin
 public class LidController implements LidControllerImplement {
     private final LidService lidService;

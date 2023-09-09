@@ -32,7 +32,6 @@ public class User extends AbsEntity implements UserDetails {
     @Column(nullable = false, unique = true)
     private String phoneNumber;
 
-    @Column(nullable = false)
     private String password;
 
 
@@ -49,8 +48,8 @@ public class User extends AbsEntity implements UserDetails {
 
     private boolean isActive;
 
-    @ManyToOne
-    private LidStatus lidStatus;
+    @ManyToMany
+    private List<LidStatus> lidStatuses;
 
     @ManyToOne
     private LidType lidType;

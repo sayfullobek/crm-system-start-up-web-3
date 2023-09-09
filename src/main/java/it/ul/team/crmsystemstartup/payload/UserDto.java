@@ -30,11 +30,15 @@ public class UserDto {
 
     private List<Course> courses;
 
+    private Integer courseId;
+
     private Set<Role> roles;
 
     private boolean isActive;
 
     private LidStatus lidStatus;
+
+    private Integer lidStatusId;
 
     private LidType lidType;
 
