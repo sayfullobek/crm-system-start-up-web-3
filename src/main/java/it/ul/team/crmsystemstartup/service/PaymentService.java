@@ -1,14 +1,15 @@
 package it.ul.team.crmsystemstartup.service;
 
 import it.ul.team.crmsystemstartup.entity.Course;
+import it.ul.team.crmsystemstartup.entity.Group;
 import it.ul.team.crmsystemstartup.entity.Payment;
 import it.ul.team.crmsystemstartup.entity.User;
 import it.ul.team.crmsystemstartup.exception.ResourceNotFoundException;
-import it.ul.team.crmsystemstartup.implement.serviceImplement.PaymentServiceImpl;
 import it.ul.team.crmsystemstartup.payload.ApiResponse;
 import it.ul.team.crmsystemstartup.payload.PaymentDto;
 import it.ul.team.crmsystemstartup.repository.AuthRepository;
 import it.ul.team.crmsystemstartup.repository.CourseRepository;
+import it.ul.team.crmsystemstartup.repository.GroupRepository;
 import it.ul.team.crmsystemstartup.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,46 +21,20 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class PaymentService implements PaymentServiceImpl {
+public class PaymentService {
 
     private final PaymentRepository paymentRepository;
     private final AuthRepository authRepository;
     private final CourseRepository courseRepository;
+    private final GroupRepository groupRepository;
 
-    @Override
-    public List<PaymentDto> getCountry() {
-        return null;
-    }
-
-    @Override
-    public ApiResponse<?> addCountry(PaymentDto paymentDto) {
-        return null;
-    }
-
-    @Override
-    public ApiResponse<?> editCountry(UUID id, PaymentDto paymentDto) {
-        return null;
-    }
-
-    @Override
-    public ApiResponse<?> deleteCountry(UUID id) {
-        return null;
-    }
-
-    @Override
-    public ApiResponse<?> getOneCountry(UUID id) {
-        return null;
-    }
-
-    @Override
-    public List<PaymentDto> getPayment() {
-        List<Payment> all = paymentRepository.findAll();
+    public List<PaymentDto> getPayment(UUID userId) {
+        User user = authRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException(404, "user", "id", userId));
         List<PaymentDto> paymentDtos = new ArrayList<>();
-        for (Payment payment : all) {
+        for (Payment payment : user.getPayment()) {
             PaymentDto build = PaymentDto.builder()
-                    .student(payment.getStudent())
-                    .sum(payment.getSum())
                     .payTypes(payment.getPayType())
+                    .sum(payment.getSum())
                     .date(payment.getDate())
                     .build();
             paymentDtos.add(build);
@@ -67,26 +42,20 @@ public class PaymentService implements PaymentServiceImpl {
         return paymentDtos;
     }
 
-    @Override
     public ApiResponse<?> addPayment(PaymentDto paymentDto) {
         try {
-            User user = authRepository.findById(paymentDto.getUserId()).orElseThrow(() -> new ResourceNotFoundException(404, "getUser", "userId", paymentDto.getUserId()));
-            Course course = courseRepository.findById(paymentDto.getCourseId()).orElseThrow(() -> new ResourceNotFoundException(404, "course", "courseId", paymentDto.getCourseId()));
-            for (Course course1 : user.getCourses()) {
-                if (course == course1) {
-                    Payment build = Payment.builder()
+
+            Group group = groupRepository.findById(paymentDto.getGroupId()).orElseThrow(() -> new ResourceNotFoundException(404, "getGroup", "group", paymentDto.getGroupId()));
+            User user = authRepository.findById(paymentDto.getUserId()).orElseThrow(() -> new ResourceNotFoundException(404, "getUser", "user", paymentDto.getUserId()));
+            for (User user1 : group.getPupil()) {
+                if (user1 == user) {
+                    PaymentDto build = PaymentDto.builder()
                             .student(paymentDto.getStudent())
-                            .sum(paymentDto.getSum())
-                            .date(paymentDto.getDate())
-                            .payType(paymentDto.getPayTypes())
+
                             .build();
-                    Payment save = paymentRepository.save(build);
-                    user.getPayment().add(save);
-                    authRepository.save(user);
-                    return new ApiResponse<>("tolandi", true);
                 }
             }
-            return new ApiResponse<>(" topilamdi", false);
+            return new ApiResponse<>(" Xatolik", false);
         } catch (Exception e) {
             return new ApiResponse<>("xatolik", false);
         }
@@ -118,7 +87,6 @@ public class PaymentService implements PaymentServiceImpl {
 //        }
 //    }
 
-    @Override
     public ApiResponse<?> editPayment(UUID id, PaymentDto paymentDto) {
         try {
             Payment payment = paymentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(404, "getPayment", "payment", id));

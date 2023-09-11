@@ -1,5 +1,6 @@
 package it.ul.team.crmsystemstartup.service;
 
+import it.ul.team.crmsystemstartup.entity.LidStatus;
 import it.ul.team.crmsystemstartup.entity.User;
 import it.ul.team.crmsystemstartup.implement.serviceImplement.PupilServiceImplement;
 import it.ul.team.crmsystemstartup.payload.ApiResponse;
@@ -34,7 +35,6 @@ public class PupilService implements PupilServiceImplement {
                             .middleName(user.getMiddleName())
                             .phoneNumber(user.getPhoneNumber())
                             .courses(user.getCourses())
-                            .lidStatus(user.getLidStatus())
                             .roles(user.getRoles())
                             .date(user.getDate())
                             .payment(user.getPayment())
