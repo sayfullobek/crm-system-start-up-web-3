@@ -23,7 +23,6 @@ public class PupilService implements PupilServiceImplement {
     private final CourseRepository courseRepository;
     private final LidStatusRepository lidStatusRepository;
 
-
     @Override
     public List<UserDto> getPupil() {
         List<User> all = userRepository.findAll();
