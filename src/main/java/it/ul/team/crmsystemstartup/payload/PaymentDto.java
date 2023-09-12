@@ -20,4 +20,5 @@ public class PaymentDto {
     private String date;
     private UUID userId;
     private Integer courseId;
+    private UUID groupId;
 }

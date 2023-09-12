@@ -27,6 +27,8 @@ public class Payment extends AbsEntity {
     private Double sum;
     @Column(nullable = false)
     private String date;
+    @ManyToMany
+    private List<Group> group;
 
 
 }
