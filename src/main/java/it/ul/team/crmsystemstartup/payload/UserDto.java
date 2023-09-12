@@ -5,7 +5,6 @@ import it.ul.team.crmsystemstartup.entity.enums.InComeType;
 import lombok.*;
 
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -32,7 +31,7 @@ public class UserDto {
 
     private Integer courseId;
 
-    private Set<Role> roles;
+    private List<Role> roles;
 
     private boolean isActive;
 
@@ -41,6 +40,8 @@ public class UserDto {
     private Integer lidStatusId;
 
     private LidType lidType;
+
+    private String lidTypeName;
 
     private List<Payment> payment;
 
