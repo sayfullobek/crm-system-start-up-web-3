@@ -1,6 +1,7 @@
 package it.ul.team.crmsystemstartup.service;
 
 import it.ul.team.crmsystemstartup.entity.Course;
+import it.ul.team.crmsystemstartup.entity.LidStatus;
 import it.ul.team.crmsystemstartup.entity.User;
 import it.ul.team.crmsystemstartup.exception.ResourceNotFoundException;
 import it.ul.team.crmsystemstartup.implement.serviceImplement.LidServiceImplement;
@@ -38,7 +39,7 @@ public class LidService implements LidServiceImplement {
                             .lastName(user.getLastName())
                             .phoneNumber(user.getPhoneNumber())
                             .lidType(user.getLidType())
-                            .lidStatus(user.getLidStatuses().get(1))
+                            .lidStatus((LidStatus) user.getLidStatuses())
                             .date(user.getDate())
                             .courses(user.getCourses())
                             .build()
@@ -59,8 +60,8 @@ public class LidService implements LidServiceImplement {
                         .courses(Collections.singletonList(course))
                         .date(userDto.getDate())
                         .lidStatuses(Collections.singletonList(lidStatusRepository.findById(userDto.getLidStatusId()).orElseThrow(() -> new ResourceNotFoundException(404, "getLidStatus", "lidStatusId", userDto.getLidStatusId()))))
-//                        .lidType(userDto.getLidType())
-                        .roles(Collections.singleton(roleRepository.findById(5).orElseThrow(() -> new org.springframework.data.rest.webmvc.ResourceNotFoundException("getRole"))))
+                        .lidType(userDto.getLidType())
+                        .roles(Collections.singletonList(roleRepository.findById(5).orElseThrow(() -> new org.springframework.data.rest.webmvc.ResourceNotFoundException("getRole"))))
                         .build();
                 userRepository.save(user);
                 return new ApiResponse<>("Saqlandi", true);
@@ -87,7 +88,7 @@ public class LidService implements LidServiceImplement {
             user.setDate(userDto.getDate());
             user.setLidStatuses(Collections.singletonList(lidStatusRepository.findById(userDto.getLidStatusId()).orElseThrow(() -> new ResourceNotFoundException(404, "getLidStatus", "lidStatusId", userDto.getLidStatusId()))));
             user.setLidType(userDto.getLidType());
-            user.setRoles(Collections.singleton(roleRepository.findById(5).orElseThrow(() -> new org.springframework.data.rest.webmvc.ResourceNotFoundException("getRole"))));
+            user.setRoles(Collections.singletonList(roleRepository.findById(5).orElseThrow(() -> new org.springframework.data.rest.webmvc.ResourceNotFoundException("getRole"))));
             userRepository.save(user);
             return new ApiResponse<>("Taxrirlandi", true);
         } catch (Exception e) {

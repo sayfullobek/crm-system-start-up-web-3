@@ -20,4 +20,8 @@ public class LidStatus {
 
     @Enumerated(value = EnumType.STRING)
     private LidStatusName lidStatusName;
+
+    public LidStatus(LidStatusName lidStatusName) {
+        this.lidStatusName = lidStatusName;
+    }
 }
