@@ -57,4 +57,12 @@ public class CourseController implements CourseControllerImpl {
         Course course = courseRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(404, "getCourse", "courseId",id));
         return ResponseEntity.ok(course);
     }
+
+    @Override
+    @PutMapping("/active/{id}")
+    public HttpEntity<?> changeActive(Integer id, boolean active) {
+        ApiResponse<?> apiResponse = courseService.changeActive(id, active);
+        return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
+
+    }
 }

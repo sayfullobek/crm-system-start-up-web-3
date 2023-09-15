@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -84,5 +85,17 @@ public class CourseService implements CourseServiceImpl {
      }catch (Exception e){
          return new ApiResponse<>("xatolik",false);
      }
+    }
+
+    @Override
+    public ApiResponse<?> changeActive(Integer id, boolean active) {
+        try {
+            Course course = courseRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(404, "getActive", "id", id));
+            course.setActive(active);
+            courseRepository.save(course);
+            return new ApiResponse<>("course active uzgartirildi",true);
+        }catch (Exception e){
+            return new ApiResponse<>("Aktive xatolik",false);
+        }
     }
 }
