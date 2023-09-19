@@ -60,7 +60,7 @@ public class CourseController implements CourseControllerImpl {
 
     @Override
     @PutMapping("/active/{id}")
-    public HttpEntity<?> changeActive(Integer id, boolean active) {
+    public HttpEntity<?> changeActive(@PathVariable Integer id,@RequestParam(name = "active") boolean active) {
         ApiResponse<?> apiResponse = courseService.changeActive(id, active);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
 

@@ -29,7 +29,7 @@ public class CourseService implements CourseServiceImpl {
                     .price(course.getPrice())
                     .expireDate(course.getExpireDate())
                     .description(course.getDescription())
-                    .isActive(true)
+                    .isActive(course.isActive())
                     .build();
             courseDtos.add(courseDto);
         }
@@ -93,7 +93,7 @@ public class CourseService implements CourseServiceImpl {
             Course course = courseRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(404, "getActive", "id", id));
             course.setActive(active);
             courseRepository.save(course);
-            return new ApiResponse<>("course active uzgartirildi",true);
+            return new ApiResponse<>("course active o'zgartirildi",true);
         }catch (Exception e){
             return new ApiResponse<>("Aktive xatolik",false);
         }
