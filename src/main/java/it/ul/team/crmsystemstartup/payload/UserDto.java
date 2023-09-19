@@ -39,6 +39,8 @@ public class UserDto {
 
     private Integer lidStatusId;
 
+    private Integer lidTypeId;
+
     private LidType lidType;
 
     private String lidTypeName;

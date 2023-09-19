@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
 @Getter
@@ -43,16 +42,26 @@ public class User extends AbsEntity implements UserDetails {
             inverseJoinColumns = {@JoinColumn(name = "courses_id")})
     private List<Course> courses;
 
-    @OneToMany
-    private Set<Role> roles;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_roles",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")})
+    private List<Role> roles;
 
     private boolean isActive;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_lid_statuses",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "lid_status_id")})
     private List<LidStatus> lidStatuses;
 
-    @ManyToOne
-    private LidType lidType;
+
+    @ManyToMany
+    @JoinTable(name = "user_lid_type",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "lid_type_id")})
+    private List<LidType> lidTypes;
 
     @ManyToMany
     private List<Payment> payment;
@@ -72,7 +81,7 @@ public class User extends AbsEntity implements UserDetails {
     private boolean enabled = true;
 
 
-    public User(String firstName, String lastName, String phoneNumber, String password, Set<Role> roles, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled) {
+    public User(String firstName, String lastName, String phoneNumber, String password, List<Role> roles, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
