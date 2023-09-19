@@ -1,9 +1,11 @@
 package it.ul.team.crmsystemstartup.service;
 
 import it.ul.team.crmsystemstartup.entity.IncomeStatistic;
+import it.ul.team.crmsystemstartup.entity.Payment;
 import it.ul.team.crmsystemstartup.implement.serviceImplement.IncomeStatisticServiceImpl;
 import it.ul.team.crmsystemstartup.payload.IncomeStatisticDto;
 import it.ul.team.crmsystemstartup.repository.IncomeStatisticRepository;
+import it.ul.team.crmsystemstartup.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Service;
@@ -15,10 +17,13 @@ import java.util.List;
 @Service
 public class IncomeStatisticService implements IncomeStatisticServiceImpl {
     private final IncomeStatisticRepository incomeStatisticRepository;
+    private final PaymentRepository paymentRepository;
+
+
     @Override
     public List<IncomeStatisticDto> getIncomeStatistic() {
         List<IncomeStatistic> all = incomeStatisticRepository.findAll();
-        List<IncomeStatisticDto> incomeStatisticDtoList =new ArrayList<>();
+        List<IncomeStatisticDto> incomeStatisticDtoList = new ArrayList<>();
         for (IncomeStatistic statistic : all) {
             incomeStatisticDtoList.add(getIncomeStatisticBuilder(statistic));
         }
@@ -27,10 +32,21 @@ public class IncomeStatisticService implements IncomeStatisticServiceImpl {
 
     @Override
     public HttpEntity<?> addIncomeStatistic(IncomeStatisticDto incomeStatisticDto) {
+        List<Payment> paymentList = paymentRepository.findAll();
+        for (Payment payment : paymentList) {
+            Double sum = payment.getSum();
+            if (sum == 0) {
+                IncomeStatistic.builder()
+                        .allS(sum)
+                        .monthly(sum)
+                        
+                        .build();
+            }
+        }
         return null;
     }
 
-    public IncomeStatisticDto getIncomeStatisticBuilder(IncomeStatistic incomeStatistic){
+    public IncomeStatisticDto getIncomeStatisticBuilder(IncomeStatistic incomeStatistic) {
         return IncomeStatisticDto.builder()
                 .allS(incomeStatistic.getAllS())
                 .monthly(incomeStatistic.getMonthly())
