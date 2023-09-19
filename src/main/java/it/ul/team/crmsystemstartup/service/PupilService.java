@@ -1,5 +1,6 @@
 package it.ul.team.crmsystemstartup.service;
 
+import it.ul.team.crmsystemstartup.entity.Role;
 import it.ul.team.crmsystemstartup.entity.User;
 import it.ul.team.crmsystemstartup.implement.serviceImplement.PupilServiceImplement;
 import it.ul.team.crmsystemstartup.payload.ApiResponse;
@@ -12,10 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -40,7 +38,7 @@ public class PupilService implements PupilServiceImplement {
                             .phoneNumber(user.getPhoneNumber())
                             .courses(user.getCourses())
                             .lidStatus(user.getLidStatuses().get(1))
-                            .roles(user.getRoles())
+                            .roles((List<Role>) user.getRoles())
                             .date(user.getDate())
                             .payment(user.getPayment())
                             .isActive(true)
@@ -60,7 +58,7 @@ public class PupilService implements PupilServiceImplement {
                     .date(userDto.getDate())
                     .phoneNumber(userDto.getPhoneNumber())
                     .courses(Collections.singletonList(courseRepository.findById(userDto.getCourseId()).orElseThrow(() -> new it.ul.team.crmsystemstartup.exception.ResourceNotFoundException(404, "getCourse", "getCourseId", userDto.getCourseId()))))
-                    .roles(Collections.singletonList(roleRepository.findById(5).orElseThrow(() -> new ResourceNotFoundException("getRole"))))
+                    .roles((Set<Role>) Collections.singletonList(roleRepository.findById(5).orElseThrow(() -> new ResourceNotFoundException("getRole"))))
                     .password(userDto.getPassword())
                     .lidStatuses(Collections.singletonList(lidStatusRepository.findById(userDto.getLidStatusId()).orElseThrow(() -> new it.ul.team.crmsystemstartup.exception.ResourceNotFoundException(404, "getLidStatus", "getLidStatusId", userDto.getLidStatusId()))))
                     .isActive(true)
@@ -70,9 +68,7 @@ public class PupilService implements PupilServiceImplement {
         } catch (Exception e) {
             return new ApiResponse<>("Xatolik", true);
         }
-    }
-
-    @Override
+    }@Override
     public ApiResponse<?> editPupil(UUID id, UserDto userDto) {
         try {
             User user = userRepository.findById(id).orElseThrow(() -> new it.ul.team.crmsystemstartup.exception.ResourceNotFoundException(404, "getUser", "getUserId", id));
@@ -82,7 +78,7 @@ public class PupilService implements PupilServiceImplement {
             user.setDate(userDto.getDate());
             user.setPhoneNumber(userDto.getPhoneNumber());
             user.setCourses(userDto.getCourses());
-            user.setRoles(Collections.singletonList(roleRepository.findById(5).orElseThrow(() -> new org.springframework.data.rest.webmvc.ResourceNotFoundException("getRole"))));
+            user.setRoles((Set<Role>) Collections.singletonList(roleRepository.findById(5).orElseThrow(() -> new ResourceNotFoundException("getRole"))));
             user.setPassword(userDto.getPassword());
             user.setActive(true);
             userRepository.save(user);
