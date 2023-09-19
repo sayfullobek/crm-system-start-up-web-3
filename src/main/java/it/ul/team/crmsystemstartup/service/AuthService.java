@@ -1,5 +1,6 @@
 package it.ul.team.crmsystemstartup.service;
 
+import it.ul.team.crmsystemstartup.entity.Role;
 import it.ul.team.crmsystemstartup.entity.User;
 import it.ul.team.crmsystemstartup.payload.*;
 import it.ul.team.crmsystemstartup.repository.AuthRepository;
@@ -19,7 +20,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -74,7 +77,7 @@ public class AuthService implements UserDetailsService {
                     .lastName(registerDto.getSurname())
                     .phoneNumber(registerDto.getPhoneNumber())
                     .password(passwordEncoder().encode(registerDto.getPassword()))
-                    .roles(Collections.singleton(roleRepository.findById(4).orElseThrow(() -> new ResourceNotFoundException("getRole"))))
+                    .roles(Collections.singletonList(roleRepository.findById(4).orElseThrow(() -> new ResourceNotFoundException("getRole"))))
                     .accountNonLocked(true)
                     .accountNonExpired(true)
                     .credentialsNonExpired(true)
@@ -90,4 +93,104 @@ public class AuthService implements UserDetailsService {
             return ResponseEntity.ok(new ApiResponse<>("Telefon raqam faqat raqamdan iborat bo'lishi kerak", false));
         }
     }
+
+    public List<RegisterDto> getTeacher() {
+        Role role1 = roleRepository.findById(4).orElseThrow(() -> new it.ul.team.crmsystemstartup.exception.ResourceNotFoundException(404, "role", "id", 4));
+        List<User> all = authRepository.findAll();
+        List<RegisterDto> registerDtoList = new ArrayList<>();
+        for (User user : all) {
+            for (Role role : user.getRoles()) {
+                if (role.equals(role1)){
+                    registerDtoList.add(
+                            RegisterDto.builder()
+                                    .name(user.getFirstName())
+                                    .surname(user.getLastName())
+                                    .phoneNumber(user.getPhoneNumber())
+                                    .password(user.getPassword())
+                                    .prePassword(user.getPrePassword())
+                                    .build()
+                    );
+                }
+            }
+        }
+        return registerDtoList;
+    }
+
+    public ApiResponse<?> addTeacher(UUID userId, RegisterDto registerDto) {
+        try {
+            User user = authRepository.findById(userId).orElseThrow(() -> new it.ul.team.crmsystemstartup.exception.ResourceNotFoundException(404, "user", "id", userId));
+            Role role1 = roleRepository.findById(1).orElseThrow(() -> new it.ul.team.crmsystemstartup.exception.ResourceNotFoundException(404, "role", "id", userId));
+            Role teacherRole = roleRepository.findById(4).orElseThrow(() -> new it.ul.team.crmsystemstartup.exception.ResourceNotFoundException(404, "role", "id", userId));
+            for (Role role : user.getRoles()) {
+                if (role.equals(role1)) {
+                    User build = User.builder()
+                            .firstName(registerDto.getName())
+                            .lastName(registerDto.getSurname())
+                            .phoneNumber(registerDto.getPhoneNumber())
+                            .password(registerDto.getPassword())
+                            .prePassword(registerDto.getPrePassword())
+                            .roles(Collections.singletonList(teacherRole))
+                            .build();
+                    authRepository.save(build);
+                    return new ApiResponse<>("O'qituvchi qo'shildi", true);
+                }
+                return new ApiResponse<>("Faqat director bajara oladi", false);
+            }
+            return new ApiResponse<>("Xatolik", false);
+        } catch (Exception e) {
+            return new ApiResponse<>("Xatolik", false);
+        }
+    }
+
+    public List<RegisterDto> getAdmin() {
+        Role role1 = roleRepository.findById(3).orElseThrow(() -> new it.ul.team.crmsystemstartup.exception.ResourceNotFoundException(404, "role", "id", 3));
+        List<User> all = authRepository.findAll();
+        List<RegisterDto> registerDtoList = new ArrayList<>();
+        for (User user : all) {
+            for (Role role : user.getRoles()) {
+                if (role.equals(role1)){
+                    registerDtoList.add(
+                            RegisterDto.builder()
+                                    .name(user.getFirstName())
+                                    .surname(user.getLastName())
+                                    .phoneNumber(user.getPhoneNumber())
+                                    .password(user.getPassword())
+                                    .prePassword(user.getPrePassword())
+                                    .build()
+                    );
+                }
+            }
+        }
+        return registerDtoList;
+    }
+
+
+    public ApiResponse<?> addAdmin(UUID userId, RegisterDto registerDto) {
+        try {
+            User user = authRepository.findById(userId).orElseThrow(() -> new it.ul.team.crmsystemstartup.exception.ResourceNotFoundException(404, "user", "id", userId));
+            Role role1 = roleRepository.findById(1).orElseThrow(() -> new it.ul.team.crmsystemstartup.exception.ResourceNotFoundException(404, "role", "id", userId));
+            Role adminRole = roleRepository.findById(3).orElseThrow(() -> new it.ul.team.crmsystemstartup.exception.ResourceNotFoundException(404, "role", "id", userId));
+            for (Role role : user.getRoles()) {
+                if (role.equals(role1)) {
+                    User build = User.builder()
+                            .firstName(registerDto.getName())
+                            .lastName(registerDto.getSurname())
+                            .phoneNumber(registerDto.getPhoneNumber())
+                            .password(registerDto.getPassword())
+                            .prePassword(registerDto.getPrePassword())
+                            .roles(Collections.singletonList(adminRole))
+                            .build();
+                    authRepository.save(build);
+                    return new ApiResponse<>("Admin qo'shildi", true);
+                }
+                return new ApiResponse<>("Faqat director bajara oladi", false);
+            }
+            return new ApiResponse<>("Xatolik", false);
+        } catch (Exception e) {
+            return new ApiResponse<>("Xatolik", false);
+        }
+    }
+
+
+
 }

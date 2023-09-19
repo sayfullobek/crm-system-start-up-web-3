@@ -32,7 +32,11 @@ public class User extends AbsEntity implements UserDetails {
     @Column(nullable = false, unique = true)
     private String phoneNumber;
 
+    @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
+    private String prePassword;
 
 
     private String date;
@@ -44,7 +48,7 @@ public class User extends AbsEntity implements UserDetails {
     private List<Course> courses;
 
     @OneToMany
-    private Set<Role> roles;
+    private List<Role> roles;
 
     private boolean isActive;
 
@@ -72,7 +76,7 @@ public class User extends AbsEntity implements UserDetails {
     private boolean enabled = true;
 
 
-    public User(String firstName, String lastName, String phoneNumber, String password, Set<Role> roles, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled) {
+    public User(String firstName, String lastName, String phoneNumber, String password, List<Role> roles, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired, boolean enabled) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
