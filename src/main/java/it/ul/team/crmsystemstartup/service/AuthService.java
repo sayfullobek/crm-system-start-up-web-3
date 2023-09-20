@@ -74,7 +74,7 @@ public class AuthService implements UserDetailsService {
                     .lastName(registerDto.getSurname())
                     .phoneNumber(registerDto.getPhoneNumber())
                     .password(passwordEncoder().encode(registerDto.getPassword()))
-                    .roles(Collections.singleton(roleRepository.findById(4).orElseThrow(() -> new ResourceNotFoundException("getRole"))))
+                    .roles(Collections.singletonList(roleRepository.findById(4).orElseThrow(() -> new ResourceNotFoundException("getRole"))))
                     .accountNonLocked(true)
                     .accountNonExpired(true)
                     .credentialsNonExpired(true)

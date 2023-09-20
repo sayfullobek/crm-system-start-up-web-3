@@ -58,7 +58,7 @@ public class PupilService implements PupilServiceImplement {
                     .date(userDto.getDate())
                     .phoneNumber(userDto.getPhoneNumber())
                     .courses(Collections.singletonList(courseRepository.findById(userDto.getCourseId()).orElseThrow(() -> new it.ul.team.crmsystemstartup.exception.ResourceNotFoundException(404, "getCourse", "getCourseId", userDto.getCourseId()))))
-                    .roles((Set<Role>) Collections.singletonList(roleRepository.findById(5).orElseThrow(() -> new ResourceNotFoundException("getRole"))))
+                    .roles(Collections.singletonList(roleRepository.findById(5).orElseThrow(() -> new ResourceNotFoundException("getRole"))))
                     .password(userDto.getPassword())
                     .lidStatuses(Collections.singletonList(lidStatusRepository.findById(userDto.getLidStatusId()).orElseThrow(() -> new it.ul.team.crmsystemstartup.exception.ResourceNotFoundException(404, "getLidStatus", "getLidStatusId", userDto.getLidStatusId()))))
                     .isActive(true)
@@ -78,7 +78,7 @@ public class PupilService implements PupilServiceImplement {
             user.setDate(userDto.getDate());
             user.setPhoneNumber(userDto.getPhoneNumber());
             user.setCourses(userDto.getCourses());
-            user.setRoles((Set<Role>) Collections.singletonList(roleRepository.findById(5).orElseThrow(() -> new ResourceNotFoundException("getRole"))));
+            user.setRoles(Collections.singletonList(roleRepository.findById(5).orElseThrow(() -> new ResourceNotFoundException("getRole"))));
             user.setPassword(userDto.getPassword());
             user.setActive(true);
             userRepository.save(user);

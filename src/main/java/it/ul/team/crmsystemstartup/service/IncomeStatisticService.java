@@ -19,13 +19,12 @@ public class IncomeStatisticService implements IncomeStatisticServiceImpl {
     private final IncomeStatisticRepository incomeStatisticRepository;
     private final PaymentRepository paymentRepository;
 
-
     @Override
     public List<IncomeStatisticDto> getIncomeStatistic() {
         List<IncomeStatistic> all = incomeStatisticRepository.findAll();
         List<IncomeStatisticDto> incomeStatisticDtoList = new ArrayList<>();
         for (IncomeStatistic statistic : all) {
-            incomeStatisticDtoList.add(getIncomeStatisticBuilder(statistic));
+
         }
         return incomeStatisticDtoList;
     }
@@ -35,11 +34,10 @@ public class IncomeStatisticService implements IncomeStatisticServiceImpl {
         List<Payment> paymentList = paymentRepository.findAll();
         for (Payment payment : paymentList) {
             Double sum = payment.getSum();
-            if (sum == 0) {
+            if (sum != 0) {
                 IncomeStatistic.builder()
                         .allS(sum)
                         .monthly(sum)
-                        
                         .build();
             }
         }

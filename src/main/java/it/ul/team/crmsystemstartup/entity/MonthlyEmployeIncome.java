@@ -20,6 +20,8 @@ public class MonthlyEmployeIncome extends AbsEntity {
     @Column(nullable = false)
     private String month;
 
+    private double percent;
+
     @Column(nullable = false)
     private String allInCome;
 }
