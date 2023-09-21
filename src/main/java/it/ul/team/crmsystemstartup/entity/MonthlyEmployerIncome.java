@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 @Entity
 @Builder
 public class MonthlyEmployerIncome extends AbsEntity {
+
     @Column(nullable = false)
     private double sum;
 

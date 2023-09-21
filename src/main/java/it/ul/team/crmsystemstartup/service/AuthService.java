@@ -28,7 +28,8 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 
-public class AuthService implements UserDetailsService {
+public class
+AuthService implements UserDetailsService {
     private final JwtTokenProvider jwtTokenProvider;
     private final AuthRepository authRepository;
     private final RoleRepository roleRepository;
