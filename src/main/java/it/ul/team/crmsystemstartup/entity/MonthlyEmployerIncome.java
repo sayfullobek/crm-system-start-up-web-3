@@ -13,12 +13,14 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 @Entity
 @Builder
-public class MonthlyEmployeIncome extends AbsEntity {
+public class MonthlyEmployerIncome extends AbsEntity {
     @Column(nullable = false)
     private double sum;
 
     @Column(nullable = false)
     private String month;
+
+    private double percent;
 
     @Column(nullable = false)
     private String allInCome;

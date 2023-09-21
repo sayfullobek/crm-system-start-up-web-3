@@ -1,12 +1,15 @@
 package it.ul.team.crmsystemstartup.component;
 
 import it.ul.team.crmsystemstartup.entity.LidStatus;
+import it.ul.team.crmsystemstartup.entity.LidType;
 import it.ul.team.crmsystemstartup.entity.Role;
 import it.ul.team.crmsystemstartup.entity.User;
 import it.ul.team.crmsystemstartup.entity.enums.LidStatusName;
+import it.ul.team.crmsystemstartup.entity.enums.LidTypeName;
 import it.ul.team.crmsystemstartup.entity.enums.RoleName;
 import it.ul.team.crmsystemstartup.repository.AuthRepository;
 import it.ul.team.crmsystemstartup.repository.LidStatusRepository;
+import it.ul.team.crmsystemstartup.repository.LidTypeRepository;
 import it.ul.team.crmsystemstartup.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,6 +32,7 @@ public class DataLoader implements CommandLineRunner {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final LidStatusRepository lidStatusRepository;
+    private final LidTypeRepository lidTypeRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -38,6 +42,9 @@ public class DataLoader implements CommandLineRunner {
             }
             for (LidStatusName value : LidStatusName.values()) {
                 lidStatusRepository.save(new LidStatus(value));
+            }
+            for (LidTypeName value : LidTypeName.values()) {
+                lidTypeRepository.save(new LidType(value));
             }
             authRepository.save(
                     User.builder()

@@ -1,19 +1,14 @@
 package it.ul.team.crmsystemstartup.service;
 
-import it.ul.team.crmsystemstartup.entity.Course;
-import it.ul.team.crmsystemstartup.entity.Group;
-import it.ul.team.crmsystemstartup.entity.Payment;
-import it.ul.team.crmsystemstartup.entity.User;
+import it.ul.team.crmsystemstartup.entity.*;
 import it.ul.team.crmsystemstartup.exception.ResourceNotFoundException;
 import it.ul.team.crmsystemstartup.payload.ApiResponse;
 import it.ul.team.crmsystemstartup.payload.PaymentDto;
-import it.ul.team.crmsystemstartup.repository.AuthRepository;
-import it.ul.team.crmsystemstartup.repository.CourseRepository;
-import it.ul.team.crmsystemstartup.repository.GroupRepository;
-import it.ul.team.crmsystemstartup.repository.PaymentRepository;
+import it.ul.team.crmsystemstartup.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -27,6 +22,7 @@ public class PaymentService {
     private final AuthRepository authRepository;
     private final CourseRepository courseRepository;
     private final GroupRepository groupRepository;
+    private final IncomeStatisticRepository incomeStatisticRepository;
 
     public List<PaymentDto> getPayment(UUID userId) {
         User user = authRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException(404, "user", "id", userId));
@@ -44,15 +40,33 @@ public class PaymentService {
 
     public ApiResponse<?> addPayment(PaymentDto paymentDto) {
         try {
-
             Group group = groupRepository.findById(paymentDto.getGroupId()).orElseThrow(() -> new ResourceNotFoundException(404, "getGroup", "group", paymentDto.getGroupId()));
             User user = authRepository.findById(paymentDto.getUserId()).orElseThrow(() -> new ResourceNotFoundException(404, "getUser", "user", paymentDto.getUserId()));
             for (User user1 : group.getPupil()) {
                 if (user1 == user) {
-                    PaymentDto build = PaymentDto.builder()
+                    Payment build = Payment.builder()
                             .student(paymentDto.getStudent())
-
+                            .sum(paymentDto.getSum())
+                            .payType(paymentDto.getPayTypes())
+                            .sum(paymentDto.getSum())
+                            .date(paymentDto.getDate())
                             .build();
+                    paymentRepository.save(build);
+                    if (LocalDate.now().toString().substring(5, 7).equals(paymentDto.getDate().substring(5, 7))) {
+                        IncomeStatistic statistic = incomeStatisticRepository.findIncomeStatisticByNowDate(LocalDate.now()).orElseThrow(() -> new ResourceNotFoundException(404, "income", "id", 1));
+                        statistic.setMonthly(statistic.getMonthly() + paymentDto.getSum());
+                        statistic.setAllS(statistic.getAllS() + paymentDto.getSum());
+                        incomeStatisticRepository.save(statistic);
+                        new ApiResponse<>("Tolandi", true);
+                    } else {
+                        IncomeStatistic build1 = IncomeStatistic.builder()
+                                .monthly(paymentDto.getSum())
+                                .allS(paymentDto.getSum())
+                                .nowDate(LocalDate.parse(paymentDto.getDate()))
+                                .build();
+                        incomeStatisticRepository.save(build1);
+                        new ApiResponse<>("Tolandi", true);
+                    }
                 }
             }
             return new ApiResponse<>(" Xatolik", false);

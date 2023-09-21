@@ -1,10 +1,7 @@
 package it.ul.team.crmsystemstartup.entity;
 
 import it.ul.team.crmsystemstartup.entity.enums.RoleName;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;

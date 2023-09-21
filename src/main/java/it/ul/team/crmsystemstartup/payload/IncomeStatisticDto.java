@@ -11,6 +11,7 @@ import java.util.UUID;
 @Builder
 public class IncomeStatisticDto {
     private UUID id;
+    private UUID studentId;
     private double allS;
     private double monthly;
     private double allS_cost;
