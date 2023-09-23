@@ -44,7 +44,6 @@ public class Group extends AbsEntity {
     @ManyToMany
     private List<User> pupil;
 
-    private UUID photoId;
 
     @ManyToOne
     private Course course;

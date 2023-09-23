@@ -51,5 +51,5 @@ public class UserDto {
 
     private InComeType inComeType;
 
-    private MonthlyEmployerIncome monthlyEmployerIncome;
+    private MonthlyEmployeIncome monthlyEmployeIncome;
 }

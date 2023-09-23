@@ -31,7 +31,7 @@ public class GroupService implements GroupServiceImpl {
         List<SelectDto> selectDtos = new ArrayList<>();
         for (Group group : all) {
             selectDtos.add((SelectDto) group.getWeekDays());
-            GroupDto groupDto = GroupDto.builder().id(group.getId()).name(group.getName()).teacher(group.getTeacher()).course(group.getCourse()).start_date(group.getStart_date()).end_date(group.getEnd_date()).weekDays(selectDtos).dayTypeName(group.getDayTypeName()).photoId(group.getPhotoId()).active(group.isActive()).build();
+            GroupDto groupDto = GroupDto.builder().id(group.getId()).name(group.getName()).teacher(group.getTeacher()).course(group.getCourse()).start_date(group.getStart_date()).end_date(group.getEnd_date()).weekDays(selectDtos).dayTypeName(group.getDayTypeName()).active(group.isActive()).build();
             groupDtos.add(groupDto);
         }
         return groupDtos;
@@ -57,7 +57,6 @@ public class GroupService implements GroupServiceImpl {
                         .start_date(groupDto.getStart_date())
                         .end_date(groupDto.getEnd_date())
                         .weekDays(weekDays)
-                        .photoId(groupDto.getPhotoId())
                         .active(true).build();
                 groupRepository.save(group);
                 return new ApiResponse<>("saqlandi", true);
@@ -68,26 +67,6 @@ public class GroupService implements GroupServiceImpl {
         }
     }
 
-    public ApiResponse<?> addPhoto(UUID groupId, UUID photoId) {
-        try {
-            Group group = groupRepository.findById(groupId).orElseThrow(() -> new ResourceNotFoundException(404, "getGroup", "groupId", groupId));
-            if (group.getPhotoId() == null) {
-                group.setPhotoId(photoId);
-                groupRepository.save(group);
-                return new ApiResponse<>("saqlandi", true);
-            } else {
-                AttachmentContent byAttachmentId = attachmentContentRepository.findByAttachmentId(group.getPhotoId());
-                Attachment get1 = attachmentRepository.findById(group.getPhotoId()).orElseThrow(() -> new ResourceNotFoundException(404, "getPhoto", "PhotoId", photoId));
-                attachmentContentRepository.delete(byAttachmentId);
-                attachmentRepository.delete(get1);
-                group.setPhotoId(photoId);
-                groupRepository.save(group);
-                return new ApiResponse<>("saqlandi", true);
-            }
-        } catch (Exception e) {
-            return new ApiResponse<>("xatolik", false);
-        }
-    }
 
     @Override
     public ApiResponse<?> editeGroup(UUID id, GroupDto groupDto) {
@@ -107,7 +86,6 @@ public class GroupService implements GroupServiceImpl {
                 group.setStart_date(groupDto.getStart_date());
                 group.setEnd_date(groupDto.getEnd_date());
                 group.setWeekDays(weekDays);
-                group.setPhotoId(groupDto.getPhotoId());
                 groupRepository.save(group);
                 return new ApiResponse<>("Taxrirlandi", true);
             } else {

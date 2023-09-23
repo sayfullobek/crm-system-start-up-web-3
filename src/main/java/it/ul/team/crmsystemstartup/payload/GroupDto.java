@@ -25,7 +25,6 @@ public class GroupDto {
     private List<SelectDto> weekDays;
     private DayTypeName dayTypeName;
     private boolean active;
-    private UUID photoId;
     private Course course;
 
 

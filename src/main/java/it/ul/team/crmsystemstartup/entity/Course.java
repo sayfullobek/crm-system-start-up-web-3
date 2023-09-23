@@ -3,8 +3,9 @@ package it.ul.team.crmsystemstartup.entity;
 import it.ul.team.crmsystemstartup.entity.templates.AbsNameEntity;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.util.List;
+import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = true)
 @Getter
@@ -24,5 +25,6 @@ public class Course extends AbsNameEntity {
     @Column(nullable = false)
     private String description;
 
+    private UUID photoId;
     private boolean isActive=true;
 }

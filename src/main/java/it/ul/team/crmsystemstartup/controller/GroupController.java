@@ -45,12 +45,7 @@ public class GroupController implements GroupControllerImpl {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @PostMapping("/photo")
-    public HttpEntity<?> addPhoto(@PathVariable UUID groupId, UUID photoId) {
-        ApiResponse<?> apiResponse = groupService.addPhoto(groupId, photoId);
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
 
-    }
 
     @Override
     @PutMapping("/{id}")

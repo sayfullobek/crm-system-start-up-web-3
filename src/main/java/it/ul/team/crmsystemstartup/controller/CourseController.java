@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/course")
@@ -63,6 +64,10 @@ public class CourseController implements CourseControllerImpl {
     public HttpEntity<?> changeActive(@PathVariable Integer id,@RequestParam(name = "active") boolean active) {
         ApiResponse<?> apiResponse = courseService.changeActive(id, active);
         return ResponseEntity.status(apiResponse.isSuccess()?200:409).body(apiResponse);
-
+    }
+    @PostMapping("/photo/{courseId}")
+    public HttpEntity<?> addPhoto(@PathVariable Integer courseId,@RequestParam UUID photoId) {
+        ApiResponse<?> apiResponse = courseService.addPhoto(courseId, photoId);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 }
