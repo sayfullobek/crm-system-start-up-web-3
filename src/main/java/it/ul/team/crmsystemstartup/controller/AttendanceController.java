@@ -1,4 +1,4 @@
-package it.ul.team.crmsystemstartup.config;
+package it.ul.team.crmsystemstartup.controller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
