@@ -33,7 +33,7 @@ public class AuthController {
 
     @GetMapping("/{id}")
     public HttpEntity<?> getOneUser(@PathVariable UUID id) {
-        User user = authRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("getUser"));
+        User user = authRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("getUserr"));
         return ResponseEntity.ok(user);
     }
 

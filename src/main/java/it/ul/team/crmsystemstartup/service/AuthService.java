@@ -91,7 +91,7 @@ AuthService implements UserDetailsService {
                     .build();
             return login(loginDto, authenticationManager);
         } catch (NumberFormatException e) {
-            return ResponseEntity.ok(new ApiResponse<>("Telefon raqam faqat raqamdan iborat bo'lishi kerak", false));
+            return ResponseEntity.ok(new ApiResponse<>("Telefon raqam faqat raqamdan iborat bo'lishi kerakk", false));
         }
     }
 
