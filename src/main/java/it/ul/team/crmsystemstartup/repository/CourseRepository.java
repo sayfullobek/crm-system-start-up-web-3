@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface CourseRepository extends JpaRepository<Course,Integer> {
     boolean existsCourseByNameEqualsIgnoreCase(String name);
      boolean existsCoursesByNameEqualsIgnoreCaseAndIdNot(String name ,Integer id);
+
 }

@@ -129,6 +129,7 @@ public class CourseService implements CourseServiceImpl {
                 return new ApiResponse<>("sqalandi", true);
             }
         } catch (Exception e) {
+
             return new ApiResponse<>("Xatolik", false);
         }
     }

@@ -70,4 +70,5 @@ public class CourseController implements CourseControllerImpl {
         ApiResponse<?> apiResponse = courseService.addPhoto(courseId, photoId);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
+
 }
