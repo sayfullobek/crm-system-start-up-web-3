@@ -5,8 +5,10 @@ import it.ul.team.crmsystemstartup.payload.IncomeStatisticDto;
 import it.ul.team.crmsystemstartup.payload.MonthlyEmployerIncomeDto;
 import org.springframework.http.HttpEntity;
 
+import java.util.List;
+
 public interface MonthlyEmployerIncomeServiceImpl {
-    ApiResponse<?> getMonthlyEmployerIncome();
+    List<MonthlyEmployerIncomeDto> getMonthlyEmployerIncome();
     ApiResponse<?> addMonthlyEmployerIncome(MonthlyEmployerIncomeDto monthlyEmployerIncomeDto);
 
 }
