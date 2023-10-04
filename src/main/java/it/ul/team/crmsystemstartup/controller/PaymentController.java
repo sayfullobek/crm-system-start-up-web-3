@@ -1,7 +1,9 @@
 package it.ul.team.crmsystemstartup.controller;
 
+import it.ul.team.crmsystemstartup.entity.Payment;
 import it.ul.team.crmsystemstartup.payload.ApiResponse;
 import it.ul.team.crmsystemstartup.payload.PaymentDto;
+import it.ul.team.crmsystemstartup.repository.PaymentRepository;
 import it.ul.team.crmsystemstartup.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
@@ -11,7 +13,6 @@ import java.util.UUID;
 
 import java.util.List;
 
-import static springfox.documentation.schema.ScalarType.UUID;
 
 @RestController
 @RequestMapping("/api/payment")
@@ -20,10 +21,16 @@ import static springfox.documentation.schema.ScalarType.UUID;
 public class PaymentController {
 
     private final PaymentService paymentService;
+    private final PaymentRepository paymentRepository;
 
-    @GetMapping
-    public HttpEntity<?> getPayment(@RequestParam UUID userId) {
-        List<PaymentDto> payment = paymentService.getPayment(userId);
+    @GetMapping()
+    public HttpEntity<?> getAll(){
+        List<Payment> all = paymentRepository.findAll();
+        return ResponseEntity.ok(all);
+    }
+    @GetMapping("/{id}")
+    public HttpEntity<?> getPayment(@PathVariable UUID id) {
+        List<PaymentDto> payment = paymentService.getPayment(id);
         return ResponseEntity.ok(payment);
     }
 
