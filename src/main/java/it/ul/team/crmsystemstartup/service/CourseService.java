@@ -51,7 +51,6 @@ public class CourseService implements CourseServiceImpl {
         try {
             boolean exist = courseRepository.existsCourseByNameEqualsIgnoreCase(courseDto.getName());
             if (!exist) {
-
                 Course course = Course.builder()
                         .price(courseDto.getPrice())
                         .expireDate(courseDto.getExpireDate())

@@ -45,6 +45,7 @@ public class IncomeStatisticService implements IncomeStatisticServiceImpl {
                         .allS_cost(incomeStatisticDto.getAllS_cost())
                         .monthly_cost(incomeStatisticDto.getMonthly_cost())
                         .build();
+
                 if (LocalDate.now().toString().substring(5, 7).equals(incomeStatisticDto.getDate().substring(5, 7))) {
                     IncomeStatistic statistic = incomeStatisticRepository.findIncomeStatisticByNowDate(LocalDate.now()).orElseThrow(() -> new ResourceNotFoundException(404, "income", "id", 1));
                     statistic.setMonthly(statistic.getMonthly() + incomeStatisticDto.getMonthly_cost());

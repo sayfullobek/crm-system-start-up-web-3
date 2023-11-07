@@ -40,7 +40,6 @@ public class PaymentService {
 
     public ApiResponse<?> addPayment(PaymentDto paymentDto) {
         try {
-
             Group group = groupRepository.findById(paymentDto.getGroupId()).orElseThrow(() -> new ResourceNotFoundException(404, "getGroup","group",paymentDto.getGroupId()));
             User user = authRepository.findById(paymentDto.getUserId()).orElseThrow(() -> new ResourceNotFoundException(404, "getUser","user",paymentDto.getUserId()));
             for (User user1 : group.getPupil()) {
