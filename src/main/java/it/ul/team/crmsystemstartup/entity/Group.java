@@ -1,15 +1,11 @@
 package it.ul.team.crmsystemstartup.entity;
 
 import it.ul.team.crmsystemstartup.entity.enums.DayTypeName;
-import it.ul.team.crmsystemstartup.entity.enums.RoleName;
-import it.ul.team.crmsystemstartup.entity.enums.WeekDaysName;
 import it.ul.team.crmsystemstartup.entity.templates.AbsEntity;
 import lombok.*;
 
-import javax.jws.soap.SOAPBinding;
 import javax.persistence.*;
 import java.util.List;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -43,7 +39,6 @@ public class Group extends AbsEntity {
 
     @ManyToMany
     private List<User> pupil;
-
 
     @ManyToOne
     private Course course;

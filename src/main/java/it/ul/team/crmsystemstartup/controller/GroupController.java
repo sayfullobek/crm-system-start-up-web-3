@@ -44,9 +44,6 @@ public class GroupController implements GroupControllerImpl {
         ApiResponse<?> apiResponse = groupService.addGroup(groupDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
-
-
-
     @Override
     @PutMapping("/{id}")
     public HttpEntity<?> editeGroup(UUID id, GroupDto groupDto) {

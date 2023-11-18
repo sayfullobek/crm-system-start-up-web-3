@@ -84,7 +84,7 @@ public class LidService implements LidServiceImplement {
             user.setFirstName(userDto.getFirstName());
             user.setLastName(userDto.getLastName());
             user.setPhoneNumber(userDto.getPhoneNumber());
-            user.setCourses(courses);
+//            user.setCourses(courses);
             user.setDate(userDto.getDate());
             user.setLidStatuses(Collections.singletonList(lidStatusRepository.findById(userDto.getLidStatusId()).orElseThrow(() -> new ResourceNotFoundException(404, "getLidStatus", "lidStatusId", userDto.getLidStatusId()))));
             user.setLidType(userDto.getLidType());

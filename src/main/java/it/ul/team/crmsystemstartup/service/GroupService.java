@@ -49,6 +49,7 @@ public class GroupService implements GroupServiceImpl {
                 weekDays.add(weekDay1);
             }
             if (!exist) {
+
                 Group group = Group.builder()
                         .name(groupDto.getName())
                         .course(course)

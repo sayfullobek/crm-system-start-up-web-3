@@ -13,7 +13,6 @@ import it.ul.team.crmsystemstartup.repository.AttachmentRepository;
 import it.ul.team.crmsystemstartup.repository.CourseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import sun.applet.AppletIllegalArgumentException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +37,7 @@ public class CourseService implements CourseServiceImpl {
                     .price(course.getPrice())
                     .expireDate(course.getExpireDate())
                     .description(course.getDescription())
-                    .isActive(course.isActive())
+//                    .isActive(course.isActive())
                     .photoId(course.getPhotoId())
                     .build();
             courseDtos.add(courseDto);
@@ -51,13 +50,12 @@ public class CourseService implements CourseServiceImpl {
         try {
             boolean exist = courseRepository.existsCourseByNameEqualsIgnoreCase(courseDto.getName());
             if (!exist) {
-
                 Course course = Course.builder()
                         .price(courseDto.getPrice())
                         .expireDate(courseDto.getExpireDate())
                         .description(courseDto.getDescription())
                         .photoId(courseDto.getPhotoId())
-                        .isActive(true)
+//                        .isActive(true)
                         .build();
                 course.setName(courseDto.getName());
                 courseRepository.save(course);
@@ -104,7 +102,7 @@ public class CourseService implements CourseServiceImpl {
     public ApiResponse<?> changeActive(Integer id, boolean active) {
         try {
             Course course = courseRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(404, "getActive", "id", id));
-            course.setActive(active);
+//            course.setActive(active);
             courseRepository.save(course);
             return new ApiResponse<>("course active o'zgartirildi", true);
         } catch (Exception e) {

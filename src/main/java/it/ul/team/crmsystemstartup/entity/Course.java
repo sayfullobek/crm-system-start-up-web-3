@@ -26,6 +26,6 @@ public class Course extends AbsNameEntity {
     private String description;
 
     private UUID photoId;
-    private boolean isActive=true;
+//    private boolean isActive=true;
 
 }
