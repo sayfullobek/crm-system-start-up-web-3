@@ -1,8 +1,6 @@
 package it.ul.team.crmsystemstartup.entity;
 
 import it.ul.team.crmsystemstartup.entity.templates.AbsEntity;
-import it.ul.team.crmsystemstartup.entity.PayType;
-
 import lombok.*;
 
 import javax.persistence.Column;

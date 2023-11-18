@@ -25,7 +25,7 @@ public class PaymentService {
     private final IncomeStatisticRepository incomeStatisticRepository;
 
     public List<PaymentDto> getPayment(UUID userId) {
-        User user = authRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException(404, "user", "id", userId));
+        User user = authRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException(404,"getUser","user",userId));
         List<PaymentDto> paymentDtos = new ArrayList<>();
         for (Payment payment : user.getPayment()) {
             PaymentDto build = PaymentDto.builder()
@@ -40,8 +40,8 @@ public class PaymentService {
 
     public ApiResponse<?> addPayment(PaymentDto paymentDto) {
         try {
-            Group group = groupRepository.findById(paymentDto.getGroupId()).orElseThrow(() -> new ResourceNotFoundException(404, "getGroup", "group", paymentDto.getGroupId()));
-            User user = authRepository.findById(paymentDto.getUserId()).orElseThrow(() -> new ResourceNotFoundException(404, "getUser", "user", paymentDto.getUserId()));
+            Group group = groupRepository.findById(paymentDto.getGroupId()).orElseThrow(() -> new ResourceNotFoundException(404, "getGroup","group",paymentDto.getGroupId()));
+            User user = authRepository.findById(paymentDto.getUserId()).orElseThrow(() -> new ResourceNotFoundException(404, "getUser","user",paymentDto.getUserId()));
             for (User user1 : group.getPupil()) {
                 if (user1 == user) {
                     Payment build = Payment.builder()
@@ -75,35 +75,9 @@ public class PaymentService {
         }
     }
 
-//    public ApiResponse<?> addPayment(PaymentDto paymentDto) {
-//        try {
-//            User user = authRepository.findById(paymentDto.getUserId()).orElseThrow(() -> new ResourceNotFoundException(404, "user", "id", paymentDto.getUserId()));
-//            Course course = courseRepository.findById(paymentDto.getCourseId()).orElseThrow(() -> new ResourceNotFoundException(404, "course", "courseId", paymentDto.getCourseId()));
-//            for (Course course1 : user.getCourses()) {
-//                if (course == course1) {
-//                    Payment build = Payment.builder()
-//                            .student(user.getFirstName() + " " + user.getLastName())
-//                            .payType(paymentDto.getPayTypes())
-//                            .sum(paymentDto.getSum())
-////                double percentPrice = (product.getPrice() / 100) * salePercent;
-////                product.setPrice(product.getPrice()-percentPrice);
-//                            .date(paymentDto.getDate())
-//                            .build();
-//                    paymentRepository.save(build);
-//                    user.getPayment().add(build);
-//                    return new ApiResponse<>("Tolandi", true);
-//                }
-//                return new ApiResponse<>("bunday kurs mavjud emas", false);
-//            }
-//            return new ApiResponse<>("topilmadi", false);
-//        } catch (Exception e) {
-//            return new ApiResponse<>("Xatolik", false);
-//        }
-//    }
-
     public ApiResponse<?> editPayment(UUID id, PaymentDto paymentDto) {
         try {
-            Payment payment = paymentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(404, "getPayment", "payment", id));
+            Payment payment = paymentRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(404,"getPayment","payment",id));
             payment.setStudent(paymentDto.getStudent());
             payment.setSum(paymentDto.getSum());
             payment.setPayType(paymentDto.getPayTypes());

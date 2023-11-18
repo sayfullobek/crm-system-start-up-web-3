@@ -68,7 +68,7 @@ public class User extends AbsEntity implements UserDetails {
     private InComeType inComeType;
 
     @ManyToOne
-    private MonthlyEmployerIncome monthlyEmployerIncome;
+    private MonthlyEmployerIncome monthlyEmployeIncome;
 
     private boolean accountNonExpired = true;
     private boolean accountNonLocked = true;

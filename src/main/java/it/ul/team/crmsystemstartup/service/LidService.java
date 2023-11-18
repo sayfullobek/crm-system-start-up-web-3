@@ -2,6 +2,7 @@ package it.ul.team.crmsystemstartup.service;
 
 import it.ul.team.crmsystemstartup.entity.Course;
 import it.ul.team.crmsystemstartup.entity.LidStatus;
+import it.ul.team.crmsystemstartup.entity.LidType;
 import it.ul.team.crmsystemstartup.entity.User;
 import it.ul.team.crmsystemstartup.exception.ResourceNotFoundException;
 import it.ul.team.crmsystemstartup.implement.serviceImplement.LidServiceImplement;
